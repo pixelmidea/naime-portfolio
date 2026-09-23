@@ -2,12 +2,13 @@
 
 :root {
   --background: #fbfaf7;
-  --foreground: #111827;
-  --muted: #4b5563;
+  --foreground: #0f172a;
+  --muted: #475569;
   --accent: #1e3a8a;
   --accent-light: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.15);
   --card: #ffffff;
-  --border: #e7e5e0;
+  --border: #e2e8f0;
 }
 
 @theme inline {
@@ -40,45 +41,84 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1cdc7;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a29e;
+  background: #94a3b8;
 }
 
-/* Editorial card & borders */
+/* Modern Card & Elevation System */
 .editorial-card {
   background-color: #ffffff;
-  border: 1px solid #e7e5e0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.02), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 1px 2px -1px rgba(15, 23, 42, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .editorial-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+  border-color: #94a3b8;
+  box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.08), 0 4px 12px -3px rgba(15, 23, 42, 0.04);
 }
 
-.editorial-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.25rem 0.625rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.025em;
-  background-color: #f1f5f9;
-  color: #1e3a8a;
-  border: 1px solid #e2e8f0;
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
-/* Subtle image frame placeholder styling */
-.editorial-photo-frame {
+.dark-glass-card {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glowing Border Accent */
+.glow-on-hover {
   position: relative;
-  background: linear-gradient(135deg, #f8f6f0 0%, #ede8df 100%);
-  border: 1px solid #ded9ce;
-  overflow: hidden;
+  transition: all 0.3s ease;
 }
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 25px -5px rgba(37, 99, 235, 0.25);
+}
+
+/* Infinite Marquee Animation for Skill Ticker */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Pulse Glow Keyframes */
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.animate-subtle-pulse {
+  animation: subtle-pulse 6s ease-in-out infinite;
+}
+
