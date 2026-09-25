@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowUpRight, GraduationCap } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Navbar() {
@@ -29,49 +30,55 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "py-3 bg-white/85 backdrop-blur-md border-b border-slate-100 shadow-sm"
+          ? "py-3 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm"
           : "py-4 sm:py-5 bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         {/* Brand identity */}
-        <a
+        <motion.a
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           href="#"
           className="flex items-center gap-2 group"
           id="nav-logo"
         >
-          <div className="w-8 h-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 flex items-center justify-center font-bold text-sm tracking-tight group-hover:scale-105 transition-transform">
+          <div className="w-8 h-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 flex items-center justify-center font-bold text-sm tracking-tight group-hover:scale-105 group-hover:bg-emerald-500 group-hover:text-white transition-all">
             N
           </div>
           <span className="font-extrabold text-slate-900 tracking-tight text-lg group-hover:text-emerald-600 transition-colors">
             {portfolioData.personal.name}
             <span className="text-emerald-500">.</span>
           </span>
-        </a>
+        </motion.a>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1 rounded-full px-4 py-1.5 bg-white/80 border border-slate-200/70 shadow-sm backdrop-blur-md">
           {navLinks.map((link) => (
-            <a
+            <motion.a
               key={link.name}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               href={link.href}
               className="px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:text-emerald-600 rounded-full hover:bg-emerald-50/80 transition-all"
             >
               {link.name}
-            </a>
+            </motion.a>
           ))}
         </nav>
 
         {/* Primary CTA */}
         <div className="hidden sm:flex items-center gap-3">
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05, y: -1 }}
+            whileTap={{ scale: 0.96 }}
             href="#contact"
             id="nav-instructor-cta"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-emerald-500 hover:bg-emerald-600 text-white shadow-md shadow-emerald-500/20 transition-all hover:shadow-lg hover:shadow-emerald-500/30 hover:-translate-y-0.5"
+            className="shimmer-card inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-md shadow-emerald-500/20 transition-all"
           >
             <span>Contact Me</span>
             <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
-          </a>
+          </motion.a>
         </div>
 
         {/* Mobile menu button */}
@@ -86,29 +93,37 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Drawer */}
-      {isOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-xl border-b border-slate-100 px-6 py-6 space-y-3 shadow-xl">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="block py-2 text-sm font-semibold text-slate-800 hover:text-emerald-600 border-b border-slate-100"
-            >
-              {link.name}
-            </a>
-          ))}
-          <div className="pt-2">
-            <a
-              href="#contact"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-3 rounded-full text-xs font-bold bg-emerald-500 text-white hover:bg-emerald-600 shadow-md shadow-emerald-500/20"
-            >
-              <span>Contact Me</span>
-            </a>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-white/95 backdrop-blur-xl border-b border-slate-100 px-6 py-6 space-y-3 shadow-xl"
+          >
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="block py-2 text-sm font-semibold text-slate-800 hover:text-emerald-600 border-b border-slate-100"
+              >
+                {link.name}
+              </a>
+            ))}
+            <div className="pt-2">
+              <a
+                href="#contact"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-full text-xs font-bold bg-emerald-500 text-white hover:bg-emerald-600 shadow-md shadow-emerald-500/20"
+              >
+                <span>Contact Me</span>
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

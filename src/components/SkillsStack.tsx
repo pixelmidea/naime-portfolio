@@ -36,8 +36,18 @@ export default function SkillsStack() {
   ];
 
   return (
-    <section id="expertise" className="py-16 sm:py-20 lg:py-24 border-b border-slate-100 bg-slate-50/40">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="expertise" className="relative py-16 sm:py-20 lg:py-24 border-b border-slate-100 bg-slate-50/40 overflow-hidden">
+      {/* Ambient background glows and sparkles */}
+      <div className="absolute top-10 left-[5%] w-80 h-80 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -z-10 animate-morph-blob" />
+      <div className="absolute bottom-10 right-[5%] w-80 h-80 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
+      <div className="absolute top-16 right-[10%] text-emerald-500/40 text-2xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
+        ✦
+      </div>
+      <div className="absolute bottom-20 left-[8%] text-teal-400/40 text-base font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
+        ✧
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mb-12 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
@@ -60,8 +70,10 @@ export default function SkillsStack() {
             const Icon = categoryIcons[idx] || Filter;
             const isActive = activeCategoryIndex === idx;
             return (
-              <button
+              <motion.button
                 key={idx}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setActiveCategoryIndex(idx)}
                 className={`relative px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 border ${
                   isActive
@@ -71,7 +83,7 @@ export default function SkillsStack() {
               >
                 <Icon className={`w-4 h-4 ${isActive ? "text-emerald-100" : "text-slate-500"}`} />
                 <span>{category.category}</span>
-              </button>
+              </motion.button>
             );
           })}
         </div>
@@ -84,7 +96,7 @@ export default function SkillsStack() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="editorial-card p-6 sm:p-8 rounded-3xl bg-white border border-slate-100 shadow-sm mb-10"
+            className="editorial-card glow-beam p-6 sm:p-8 rounded-3xl bg-white border border-slate-100 shadow-sm mb-10"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-6">
               <div>
@@ -103,20 +115,25 @@ export default function SkillsStack() {
             {/* Skills Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
               {currentCategory.skills.map((skill, sIdx) => (
-                <div
+                <motion.div
                   key={sIdx}
-                  className="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 hover:border-emerald-500/40 hover:bg-white hover:shadow-md hover:shadow-emerald-500/5 transition-all flex flex-col justify-between group"
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                  className="shimmer-card p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 hover:border-emerald-500/40 hover:bg-white hover:shadow-lg hover:shadow-emerald-500/10 transition-all flex flex-col justify-between group cursor-default"
                 >
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
                       {skill.name}
                     </span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    </span>
                   </div>
                   <span className="text-xs text-slate-600 leading-snug">
                     {skill.focus}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -135,16 +152,18 @@ export default function SkillsStack() {
 
           <div className="flex flex-wrap items-center gap-2">
             {toolsList.map((tool, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="px-3.5 py-2 rounded-full bg-slate-50 border border-slate-200/80 flex items-center gap-2 text-xs text-slate-700 font-medium hover:border-emerald-300 hover:bg-emerald-50/40 transition-colors shadow-2xs"
+                whileHover={{ y: -3, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+                className="shimmer-card px-3.5 py-2 rounded-full bg-slate-50 border border-slate-200/80 flex items-center gap-2 text-xs text-slate-700 font-medium hover:border-emerald-300 hover:bg-emerald-50/50 hover:text-emerald-700 transition-colors shadow-2xs cursor-default"
               >
                 <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
                 <span>{tool.name}</span>
                 <span className="text-[10px] text-slate-500 bg-white px-1.5 py-0.5 rounded-full border border-slate-200">
                   {tool.type}
                 </span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

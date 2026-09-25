@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import {
   Mail,
   Phone,
@@ -60,17 +61,36 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-white border-t border-slate-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="contact" className="relative py-16 sm:py-20 lg:py-24 bg-white border-t border-slate-100 overflow-hidden">
+      {/* Ambient background glows and sparkles */}
+      <div className="absolute top-10 -left-10 w-80 h-80 bg-emerald-100/35 rounded-full blur-3xl pointer-events-none -z-10 animate-morph-blob" />
+      <div className="absolute bottom-10 right-0 w-80 h-80 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
+      <div className="absolute top-12 left-[8%] text-emerald-500/40 text-xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
+        ✦
+      </div>
+      <div className="absolute bottom-24 right-[7%] text-teal-400/40 text-sm font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
+        ✧
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Banner Card */}
         <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 mb-14 relative overflow-hidden shadow-2xl border border-slate-800">
           {/* Luminous emerald glow in the banner */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/20 blur-3xl rounded-full pointer-events-none" />
-          <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-teal-500/15 blur-3xl rounded-full pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/20 blur-3xl rounded-full pointer-events-none animate-morph-blob" />
+          <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-teal-500/15 blur-3xl rounded-full pointer-events-none animate-pulse-glow" />
+          <div className="absolute top-6 right-10 text-emerald-400/50 text-xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
+            ✦
+          </div>
+          <div className="absolute bottom-8 right-28 text-teal-300/40 text-sm font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
+            ✧
+          </div>
 
           <div className="relative z-10 max-w-2xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider font-mono">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+              </span>
               <span>Available for New Engagements</span>
             </div>
 
@@ -84,23 +104,27 @@ export default function Contact() {
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3">
-              <a
+              <motion.a
+                whileHover={{ y: -3, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href={`https://wa.me/${personal.phone.replace(/[^0-9]/g, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition-all hover:-translate-y-0.5"
+                className="shimmer-card inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>Chat on WhatsApp</span>
-              </a>
+              </motion.a>
 
-              <button
+              <motion.button
+                whileHover={{ y: -3, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm border border-white/20 backdrop-blur-md transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm border border-white/20 backdrop-blur-md transition-all"
               >
                 {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                 <span>{copiedEmail ? "Email Copied!" : "Copy Email"}</span>
-              </button>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -120,7 +144,11 @@ export default function Contact() {
 
             <div className="space-y-3">
               {/* Email */}
-              <div className="editorial-card p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/30 transition-all">
+              <motion.div
+                whileHover={{ y: -3, x: 2, scale: 1.015 }}
+                transition={{ duration: 0.2 }}
+                className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
+              >
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
                     <Mail className="w-4 h-4" />
@@ -144,10 +172,14 @@ export default function Contact() {
                 >
                   {copiedEmail ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                 </button>
-              </div>
+              </motion.div>
 
               {/* Phone */}
-              <div className="editorial-card p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/30 transition-all">
+              <motion.div
+                whileHover={{ y: -3, x: 2, scale: 1.015 }}
+                transition={{ duration: 0.2 }}
+                className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
+              >
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
                     <Phone className="w-4 h-4" />
@@ -171,10 +203,14 @@ export default function Contact() {
                 >
                   {copiedPhone ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                 </button>
-              </div>
+              </motion.div>
 
               {/* LinkedIn */}
-              <div className="editorial-card p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/30 transition-all">
+              <motion.div
+                whileHover={{ y: -3, x: 2, scale: 1.015 }}
+                transition={{ duration: 0.2 }}
+                className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
+              >
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
                     <LinkedinIcon className="w-4 h-4" />
@@ -202,10 +238,14 @@ export default function Contact() {
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
-              </div>
+              </motion.div>
 
               {/* Location */}
-              <div className="editorial-card p-4 rounded-2xl bg-white border border-slate-100 flex items-center gap-3 shadow-sm">
+              <motion.div
+                whileHover={{ y: -3, x: 2, scale: 1.015 }}
+                transition={{ duration: 0.2 }}
+                className="editorial-card p-4 rounded-2xl bg-white border border-slate-100 flex items-center gap-3 shadow-sm hover:border-slate-200"
+              >
                 <div className="p-2.5 rounded-xl bg-slate-100 text-slate-700">
                   <MapPin className="w-4 h-4" />
                 </div>
@@ -217,12 +257,12 @@ export default function Contact() {
                     {personal.location} (Remote &amp; Onsite)
                   </span>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Right Column: Interactive Booking Form */}
-          <div className="lg:col-span-7 editorial-card p-6 sm:p-8 rounded-3xl bg-white border border-slate-100 shadow-sm">
+          <div className="lg:col-span-7 editorial-card shimmer-card glow-beam p-6 sm:p-8 rounded-3xl bg-white border border-slate-100 shadow-sm">
             <h3 className="text-xl font-bold text-slate-900 mb-1">
               Send an Inquiry
             </h3>
@@ -238,9 +278,11 @@ export default function Contact() {
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {roleOptions.map((opt) => (
-                    <button
+                    <motion.button
                       type="button"
                       key={opt}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
                       onClick={() => setFormData({ ...formData, roleType: opt })}
                       className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all border ${
                         formData.roleType === opt
@@ -249,7 +291,7 @@ export default function Contact() {
                       }`}
                     >
                       {opt}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
@@ -311,13 +353,15 @@ export default function Contact() {
                 />
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ y: -2, scale: 1.015 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5"
+                className="shimmer-card w-full py-3.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 <Send className="w-4 h-4" />
                 <span>{submitted ? "Launching Email Client..." : "Send Inquiry"}</span>
-              </button>
+              </motion.button>
             </form>
           </div>
         </div>

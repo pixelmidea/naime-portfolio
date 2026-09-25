@@ -28,13 +28,23 @@ export default function ImpactCaseStudies() {
   return (
     <section
       id="work"
-      className="py-10 sm:py-12 lg:py-14 border-b border-slate-100 bg-white flex flex-col justify-center"
+      className="relative py-10 sm:py-12 lg:py-14 border-b border-slate-100 bg-white flex flex-col justify-center overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
+      {/* Ambient background glows and sparkles */}
+      <div className="absolute top-1/3 -right-20 w-80 h-80 bg-emerald-100/35 rounded-full blur-3xl pointer-events-none -z-10 animate-morph-blob" />
+      <div className="absolute bottom-10 -left-10 w-72 h-72 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
+      <div className="absolute top-12 left-[8%] text-emerald-500/40 text-xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
+        ✦
+      </div>
+      <div className="absolute top-36 right-[6%] text-teal-400/40 text-sm font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
+        ✧
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10">
         {/* Compact Centered Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[10px] sm:text-[11px] font-bold tracking-wider uppercase mb-2">
-            <Sparkles className="w-3 h-3 text-emerald-600" />
+            <Sparkles className="w-3 h-3 text-emerald-600 animate-spin-slow" />
             <span>Proven Track Record • Live Agency Results</span>
           </div>
 
@@ -57,10 +67,12 @@ export default function ImpactCaseStudies() {
             {caseStudies.map((cs) => {
               const isActive = cs.id === activeTab;
               return (
-                <button
+                <motion.button
                   key={cs.id}
+                  whileHover={{ x: 4, scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
                   onClick={() => setActiveTab(cs.id)}
-                  className={`relative p-3.5 sm:p-4 rounded-2xl text-left transition-all duration-300 border flex flex-col justify-between group h-full ${
+                  className={`relative p-3.5 sm:p-4 rounded-2xl text-left transition-all duration-300 border flex flex-col justify-between group h-full shimmer-card ${
                     isActive
                       ? "bg-white border-emerald-500 shadow-md ring-2 ring-emerald-500/15"
                       : "bg-white/80 border-slate-100 hover:bg-white hover:border-slate-200 shadow-2xs"
@@ -113,7 +125,7 @@ export default function ImpactCaseStudies() {
                       <ChevronRight className="w-3 h-3" />
                     </span>
                   </div>
-                </button>
+                </motion.button>
               );
             })}
           </div>
@@ -123,16 +135,16 @@ export default function ImpactCaseStudies() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedCaseStudy.id}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-                className="editorial-card rounded-3xl bg-white border border-[#e2e8f0] shadow-md p-4 sm:p-5 flex flex-col justify-between h-full space-y-3"
+                initial={{ opacity: 0, scale: 0.98, y: 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.98, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="editorial-card shimmer-card glow-beam rounded-3xl bg-white border border-slate-100 shadow-md p-4 sm:p-5 flex flex-col justify-between h-full space-y-3"
               >
                 {/* Header Meta Row */}
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-[10px] font-bold text-[#1e3a8a] uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded border border-blue-200/80">
+                    <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/80">
                       {selectedCaseStudy.clientType}
                     </span>
                     {selectedCaseStudy.region && (

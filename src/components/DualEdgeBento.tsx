@@ -92,13 +92,23 @@ export default function DualEdgeBento() {
   return (
     <section
       id="bento"
-      className="py-12 sm:py-16 border-b border-slate-100 bg-slate-50/50 flex flex-col justify-center"
+      className="relative py-12 sm:py-16 border-b border-slate-100 bg-slate-50/50 flex flex-col justify-center overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
+      {/* Ambient background glows and sparkles */}
+      <div className="absolute -top-10 -left-10 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -z-10 animate-morph-blob" />
+      <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
+      <div className="absolute top-8 right-[8%] text-emerald-500/40 text-xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
+        ✦
+      </div>
+      <div className="absolute bottom-12 left-[6%] text-teal-400/40 text-sm font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
+        ✧
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10">
         {/* Centered Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-2.5">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-spin-slow" />
             <span>The Practitioner-Instructor Edge</span>
           </div>
 
@@ -121,16 +131,17 @@ export default function DualEdgeBento() {
               return (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ y: -6, scale: 1.02 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: idx * 0.06 }}
-                  className={`editorial-card p-4 rounded-2xl flex flex-col justify-between bg-white border border-slate-100 shadow-sm ${style.border} hover:shadow-lg hover:shadow-emerald-500/5 transition-all group`}
+                  className={`editorial-card shimmer-card p-4 rounded-2xl flex flex-col justify-between bg-white border border-slate-100 shadow-sm ${style.border} hover:shadow-xl hover:shadow-emerald-500/10 transition-all group`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <div
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center border ${style.badge}`}
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center border transition-transform group-hover:scale-110 ${style.badge}`}
                       >
                         <CardIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </div>
@@ -139,7 +150,7 @@ export default function DualEdgeBento() {
                       </span>
                     </div>
 
-                    <div className="text-2xl sm:text-[1.75rem] font-extrabold text-slate-900 tracking-tight font-mono mb-0.5 leading-tight">
+                    <div className="text-2xl sm:text-[1.75rem] font-extrabold text-slate-900 tracking-tight font-mono mb-0.5 leading-tight group-hover:text-emerald-600 transition-colors">
                       <AnimatedCounter value={item.value} />
                     </div>
 
@@ -157,8 +168,12 @@ export default function DualEdgeBento() {
                       <span className="font-semibold text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200/80">
                         {item.tag}
                       </span>
-                      <span className="font-bold text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                        Verified •
+                      <span className="font-bold text-emerald-600 flex items-center gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                        </span>
+                        Verified
                       </span>
                     </div>
                   )}
@@ -169,7 +184,7 @@ export default function DualEdgeBento() {
 
           {/* Right Column (6 cols): Featured Video Showcase Player */}
           <div className="lg:col-span-6 flex flex-col">
-            <div className="relative rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-xl h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] flex flex-col justify-center">
+            <div className="shimmer-card glow-beam relative rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-xl h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] flex flex-col justify-center">
               {isVideoPlaying && embedUrl ? (
                 <iframe
                   src={embedUrl}
@@ -203,8 +218,11 @@ export default function DualEdgeBento() {
 
                   {/* Top Bar Badges */}
                   <div className="relative p-3.5 sm:p-4 flex items-center justify-between z-10">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] sm:text-[11px] font-bold text-white uppercase tracking-wider shadow-sm">
-                      <Video className="w-3 h-3 text-blue-400" />
+                    <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] sm:text-[11px] font-bold text-white uppercase tracking-wider shadow-sm">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
+                      </span>
                       {videoShowcase?.badge || "Featured Masterclass"}
                     </span>
 
