@@ -39,7 +39,7 @@ export default function ClassroomToCampaign() {
                 The Classroom
               </h3>
               <p className="text-xs text-gray-600 mb-6 leading-relaxed">
-                4+ years teaching secondary school and coaching mathematics, mastering how minds learn.
+                5+ years teaching secondary school and coaching mathematics, mastering how minds learn.
               </p>
 
               <ul className="space-y-3">

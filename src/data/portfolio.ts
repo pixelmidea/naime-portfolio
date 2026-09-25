@@ -114,7 +114,7 @@ export const portfolioData = {
     tagline: "I turn real-world marketing experience into practical learning.",
     alternativePositioning: "Digital Marketing Strategist • Trainer • Client Growth Specialist",
     shortBio: "NSDA Level-3 Certified Digital Marketer with 4+ years of professional experience, 100+ international clients, agency background, and a proven foundation in teaching.",
-    fullBio: "Combining formal digital marketing certification, hands-on agency operations, international client management, and over four years of classroom teaching experience to deliver high-impact digital marketing training and measurable business growth.",
+    fullBio: "Combining formal digital marketing certification, hands-on agency operations, international client management, and over five years of classroom teaching experience to deliver high-impact digital marketing training and measurable business growth.",
     location: "Sirajganj, Bangladesh",
     phone: "+8801625596245",
     email: "digiticnaime@gmail.com",
@@ -160,7 +160,7 @@ export const portfolioData = {
     },
     {
       category: "TEACHING",
-      value: "4+ Years",
+      value: "5+ Years",
       label: "Teaching Experience",
       description: "Mathematics instruction at school & coaching levels, honing structured pedagogy.",
       tag: "Secondary & Coaching",

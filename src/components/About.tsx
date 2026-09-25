@@ -70,7 +70,7 @@ export default function About() {
               </p>
 
               <p>
-                Over the past 4+ years, I have worked inside digital marketing agencies, directly communicated with and managed over <strong>100 international clients</strong>, and planned cross-platform paid advertising and organic growth campaigns. At the same time, I spent over four years teaching mathematics at the school and coaching levels.
+                Over the past 4+ years, I have worked inside digital marketing agencies, directly communicated with and managed over <strong>100 international clients</strong>, and planned cross-platform paid advertising and organic growth campaigns. At the same time, I spent over five years teaching mathematics at the school and coaching levels.
               </p>
 
               <p>

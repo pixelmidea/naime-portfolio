@@ -19,7 +19,7 @@ export default function Experience() {
           </h2>
 
           <p className="text-base sm:text-lg text-gray-700 leading-relaxed max-w-2xl">
-            A cohesive track record combining active digital agency leadership with over four years of structured academic mathematics teaching.
+            A cohesive track record combining active digital agency leadership with over five years of structured academic mathematics teaching.
           </p>
         </div>
 

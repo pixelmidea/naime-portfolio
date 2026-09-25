@@ -123,7 +123,7 @@ export default function Hero() {
                   </h1>
 
                   <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-xl">
-                    4+ years teaching analytical mathematics gives me the structured pedagogy to break down complex ad algorithms, conversion funnels, and marketing mechanics into simple, reproducible workflows that learners master quickly.
+                    5+ years teaching analytical mathematics gives me the structured pedagogy to break down complex ad algorithms, conversion funnels, and marketing mechanics into simple, reproducible workflows that learners master quickly.
                   </p>
 
                   {/* Instructor CTAs */}

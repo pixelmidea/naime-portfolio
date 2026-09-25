@@ -69,7 +69,7 @@ export default function Footer() {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-3">
           <p>© 2026 {personal.name}. All rights reserved.</p>
           <p className="text-[11px] font-medium text-gray-600">
-            NSDA Level-3 Certified • 100+ Global Accounts • 4+ Years Teaching Experience
+            NSDA Level-3 Certified • 100+ Global Accounts • 5+ Years Teaching Experience
           </p>
         </div>
       </div>
