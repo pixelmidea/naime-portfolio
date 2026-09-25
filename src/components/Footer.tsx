@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
+import { LinkedinIcon } from "@/components/SocialIcons";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Footer() {
@@ -42,7 +43,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Nav Links */}
+          {/* Quick Nav Links & Socials */}
           <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600">
             {navLinks.map((link) => (
               <a
@@ -53,6 +54,19 @@ export default function Footer() {
                 {link.name}
               </a>
             ))}
+
+            <span className="text-slate-300 hidden sm:inline">|</span>
+
+            <a
+              href={personal.socials.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="p-1.5 rounded-full bg-slate-50 border border-slate-200 text-slate-600 hover:text-emerald-600 hover:border-emerald-300 transition-colors"
+              title="LinkedIn Profile"
+            >
+              <LinkedinIcon className="w-3.5 h-3.5" />
+            </a>
           </div>
 
           {/* Back to top */}

@@ -10,7 +10,9 @@ import {
   Copy,
   MessageSquare,
   Sparkles,
+  ArrowUpRight,
 } from "lucide-react";
+import { LinkedinIcon } from "@/components/SocialIcons";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Contact() {
@@ -169,6 +171,37 @@ export default function Contact() {
                 >
                   {copiedPhone ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                 </button>
+              </div>
+
+              {/* LinkedIn */}
+              <div className="editorial-card p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/30 transition-all">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
+                    <LinkedinIcon className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block font-mono">
+                      LinkedIn Profile
+                    </span>
+                    <a
+                      href={personal.socials.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-600 transition-colors"
+                    >
+                      shinewithnaime
+                    </a>
+                  </div>
+                </div>
+                <a
+                  href={personal.socials.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-slate-400 hover:text-emerald-600 rounded-lg hover:bg-slate-100 transition-colors"
+                  title="Open LinkedIn"
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                </a>
               </div>
 
               {/* Location */}

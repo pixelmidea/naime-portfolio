@@ -121,7 +121,7 @@ export const portfolioData = {
     availability: "Available for Instructor Roles, Corporate Training & Strategic Consulting",
     resumeUrl: "#contact",
     socials: {
-      linkedin: "https://linkedin.com",
+      linkedin: "https://www.linkedin.com/in/shinewithnaime/",
       whatsapp: "https://wa.me/8801625596245",
       facebook: "https://facebook.com",
     },
