@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Camera, Play, Eye, X, Filter, Video, Sparkles } from "lucide-react";
+import { Camera, Play, Eye, X, Video } from "lucide-react";
 import { portfolioData, MediaItem } from "@/data/portfolio";
 
 export default function MediaGallery() {

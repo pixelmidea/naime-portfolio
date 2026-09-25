@@ -1,8 +1,6 @@
-import { Check, Sparkles, BookOpen, Presentation, Users, ArrowUpRight } from "lucide-react";
-import { portfolioData } from "@/data/portfolio";
+import { Check, Presentation } from "lucide-react";
 
 export default function About() {
-  const { personal } = portfolioData;
 
   const coreStrengths = [
     "Translating complex ad algorithms into structured lessons",

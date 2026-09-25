@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import SparkleParticle from "@/components/SparkleParticle";
+import TiltCard from "@/components/TiltCard";
 
 function getEmbedUrl(url: string): string | null {
   if (!url) return null;
@@ -97,27 +99,27 @@ export default function DualEdgeBento() {
       {/* Ambient background glows and sparkles */}
       <div className="absolute -top-10 -left-10 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -z-10 animate-morph-blob" />
       <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
-      <div className="absolute top-8 right-[8%] text-emerald-500/40 text-xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
-        ✦
-      </div>
-      <div className="absolute bottom-12 left-[6%] text-teal-400/40 text-sm font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
-        ✧
-      </div>
+      <SparkleParticle className="absolute top-8 right-[8%] hidden sm:block" size="lg" color="emerald" delay={0.4} />
+      <SparkleParticle className="absolute bottom-12 left-[6%] hidden sm:block" size="md" color="teal" variant="four-point-soft" delay={1.1} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full relative z-10">
-        {/* Centered Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-2.5">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-spin-slow" />
             <span>The Practitioner-Instructor Edge</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-extrabold tracking-tight text-slate-900 leading-[1.2]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18] mb-4">
             Mathematics Logic meets{" "}
             <span className="text-emerald-500">
               Live Agency Marketing.
             </span>
           </h2>
+
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Combining analytical rigor from secondary mathematics with real-world paid media execution across global agency accounts.
+          </p>
         </div>
 
         {/* 2-Column Symmetrical Feature Grid (Cards on Left, Video on Right) */}
@@ -129,55 +131,55 @@ export default function DualEdgeBento() {
               const style = accentStyles[idx] || accentStyles[0];
 
               return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  whileHover={{ y: -6, scale: 1.02 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: idx * 0.06 }}
-                  className={`editorial-card shimmer-card p-4 rounded-2xl flex flex-col justify-between bg-white border border-slate-100 shadow-sm ${style.border} hover:shadow-xl hover:shadow-emerald-500/10 transition-all group`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <div
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center border transition-transform group-hover:scale-110 ${style.badge}`}
-                      >
-                        <CardIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">
-                        {item.category}
-                      </span>
-                    </div>
-
-                    <div className="text-2xl sm:text-[1.75rem] font-extrabold text-slate-900 tracking-tight font-mono mb-0.5 leading-tight group-hover:text-emerald-600 transition-colors">
-                      <AnimatedCounter value={item.value} />
-                    </div>
-
-                    <div className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-tight mb-1">
-                      {item.label}
-                    </div>
-
-                    <p className="text-[11px] text-slate-600 leading-snug line-clamp-2">
-                      {item.description}
-                    </p>
-                  </div>
-
-                  {item.tag && (
-                    <div className="pt-2 mt-2.5 border-t border-slate-100 flex items-center justify-between text-[10px]">
-                      <span className="font-semibold text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200/80">
-                        {item.tag}
-                      </span>
-                      <span className="font-bold text-emerald-600 flex items-center gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
-                        <span className="relative flex h-2 w-2">
-                          <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <TiltCard key={idx} maxTilt={6} className="h-full">
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.35, delay: idx * 0.06 }}
+                    className={`editorial-card shimmer-card p-4 rounded-2xl flex flex-col justify-between bg-white border border-slate-100 shadow-sm ${style.border} hover:shadow-xl hover:shadow-emerald-500/10 transition-all group h-full`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <div
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center border transition-transform group-hover:scale-110 ${style.badge}`}
+                        >
+                          <CardIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">
+                          {item.category}
                         </span>
-                        Verified
-                      </span>
+                      </div>
+
+                      <div className="text-2xl sm:text-[1.75rem] font-extrabold text-slate-900 tracking-tight font-mono mb-0.5 leading-tight group-hover:text-emerald-600 transition-colors">
+                        <AnimatedCounter value={item.value} />
+                      </div>
+
+                      <div className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-tight mb-1">
+                        {item.label}
+                      </div>
+
+                      <p className="text-[11px] text-slate-600 leading-snug line-clamp-2">
+                        {item.description}
+                      </p>
                     </div>
-                  )}
-                </motion.div>
+
+                    {item.tag && (
+                      <div className="pt-2 mt-2.5 border-t border-slate-100 flex items-center justify-between text-[10px]">
+                        <span className="font-semibold text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200/80">
+                          {item.tag}
+                        </span>
+                        <span className="font-bold text-emerald-600 flex items-center gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                          </span>
+                          Verified
+                        </span>
+                      </div>
+                    )}
+                  </motion.div>
+                </TiltCard>
               );
             })}
           </div>

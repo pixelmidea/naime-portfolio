@@ -17,6 +17,7 @@ export default function Footer() {
     { name: "Case Studies", href: "#work" },
     { name: "Skills", href: "#expertise" },
     { name: "Experience", href: "#experience" },
+    { name: "Book Call", href: "#book" },
     { name: "Contact", href: "#contact" },
   ];
 

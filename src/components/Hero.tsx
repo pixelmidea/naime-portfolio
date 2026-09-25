@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "motion/react";
 import {
   ArrowRight,
   GraduationCap,
@@ -13,11 +13,41 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { LinkedinIcon } from "@/components/SocialIcons";
+import SparkleParticle from "@/components/SparkleParticle";
 import { portfolioData } from "@/data/portfolio";
+
+// Staggered entrance config
+const entrance = (delay: number) => ({
+  initial: { opacity: 0, y: 25, filter: "blur(6px)" },
+  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+  transition: { duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] as const },
+});
 
 export default function Hero() {
   const { personal } = portfolioData;
   const [roleMode, setRoleMode] = useState<"instructor" | "marketer">("marketer");
+
+  // Mouse-tracking parallax for portrait
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const portraitRef = useRef<HTMLDivElement>(null);
+
+  const springConfig = { damping: 30, stiffness: 150 };
+  const rotateX = useSpring(useTransform(mouseY, [-300, 300], [5, -5]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-5, 5]), springConfig);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!portraitRef.current) return;
+      const rect = portraitRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      mouseX.set(e.clientX - centerX);
+      mouseY.set(e.clientY - centerY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
 
   const platformSkills = [
     "Meta Ads Manager",
@@ -34,25 +64,13 @@ export default function Hero() {
 
   return (
     <section className="relative pt-24 pb-12 sm:pt-28 sm:pb-14 lg:pt-32 lg:pb-16 overflow-hidden border-b border-slate-100">
-      {/* Floating Sparkle ✦ Constellation in Background */}
-      <div className="absolute top-16 left-[5%] text-emerald-500/70 text-3xl font-serif pointer-events-none select-none animate-twinkle hidden md:block">
-        ✦
-      </div>
-      <div className="absolute top-44 left-[16%] text-teal-400/50 text-base font-serif pointer-events-none select-none animate-twinkle-delayed hidden lg:block">
-        ✧
-      </div>
-      <div className="absolute bottom-28 left-[4%] text-teal-500/50 text-2xl font-serif pointer-events-none select-none animate-float-slow hidden md:block">
-        ✦
-      </div>
-      <div className="absolute top-20 right-[10%] text-purple-400/60 text-3xl font-serif pointer-events-none select-none animate-twinkle hidden lg:block">
-        ✦
-      </div>
-      <div className="absolute bottom-32 right-[5%] text-emerald-400/70 text-xl font-serif pointer-events-none select-none animate-twinkle-delayed hidden md:block">
-        ✧
-      </div>
-      <div className="absolute top-1/3 right-[32%] text-amber-400/40 text-sm font-serif pointer-events-none select-none animate-twinkle hidden xl:block">
-        ★
-      </div>
+      {/* Floating Sparkle Constellation in Background */}
+      <SparkleParticle className="absolute top-16 left-[5%] hidden md:block" size="lg" color="emerald" delay={0.2} />
+      <SparkleParticle className="absolute top-44 left-[16%] hidden lg:block" size="sm" color="teal" variant="four-point-soft" delay={0.8} />
+      <SparkleParticle className="absolute bottom-28 left-[4%] hidden md:block" size="lg" color="teal" delay={1.2} />
+      <SparkleParticle className="absolute top-20 right-[10%] hidden lg:block" size="xl" color="purple" delay={0.5} />
+      <SparkleParticle className="absolute bottom-32 right-[5%] hidden md:block" size="md" color="emerald" variant="diamond" delay={1.5} />
+      <SparkleParticle className="absolute top-1/3 right-[32%] hidden xl:block" size="sm" color="amber" delay={2} />
 
       {/* Multi-layered Organic Morphing Aurora Backdrop */}
       <div className="absolute top-1/2 left-[48%] -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-emerald-200/25 via-teal-100/20 to-purple-200/20 blur-3xl rounded-full pointer-events-none -z-10 animate-morph-blob" />
@@ -60,7 +78,7 @@ export default function Hero() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Sleek Animated Dual Role Selector */}
-        <div className="flex justify-start mb-6">
+        <motion.div className="flex justify-start mb-6" {...entrance(0.4)}>
           <div className="inline-flex p-1 rounded-full bg-slate-100/80 border border-slate-200/80 backdrop-blur-md shadow-2xs">
             <button
               onClick={() => setRoleMode("marketer")}
@@ -104,14 +122,14 @@ export default function Hero() {
               </span>
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Hero 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center mb-10 sm:mb-14">
           {/* Left Column: Greeting, Shimmer Name, Role & Interactive Action Buttons */}
           <div className="lg:col-span-6 xl:col-span-7 space-y-5">
             {/* Greeting with Animated Shimmer Name */}
-            <div className="space-y-1">
+            <motion.div className="space-y-1" {...entrance(0.55)}>
               <div className="inline-flex items-center gap-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
                 <span>Hi, I&apos;m</span>
                 <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 bg-[length:200%_auto] animate-gradient-x underline decoration-emerald-200 decoration-4 underline-offset-8">
@@ -137,7 +155,7 @@ export default function Hero() {
                     : "Digital Marketing Instructor & Pedagogue"}
                 </motion.h1>
               </AnimatePresence>
-            </div>
+            </motion.div>
 
             {/* Narrative Paragraph */}
             <AnimatePresence mode="wait">
@@ -156,7 +174,7 @@ export default function Hero() {
             </AnimatePresence>
 
             {/* Shimmer Pill Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center gap-3.5">
+            <motion.div className="pt-2 flex flex-wrap items-center gap-3.5" {...entrance(0.75)}>
               <motion.a
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -177,10 +195,10 @@ export default function Hero() {
               >
                 <span>Contact Me</span>
               </motion.a>
-            </div>
+            </motion.div>
 
             {/* Meta Row: Location + Divider + Social Links */}
-            <div className="pt-4 flex items-center gap-4 text-xs font-medium text-slate-500">
+            <motion.div className="pt-4 flex items-center gap-4 text-xs font-medium text-slate-500" {...entrance(0.85)}>
               <div className="flex items-center gap-1.5">
                 <MapPin className="w-4 h-4 text-emerald-500" />
                 <span>{personal.location}</span>
@@ -217,12 +235,24 @@ export default function Hero() {
                   <MessageCircle className="w-4 h-4" />
                 </a>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Column: Floating Multi-Layered Portrait Showcase */}
-          <div className="lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end relative">
-            <div className="relative w-full max-w-[420px] sm:max-w-[460px]">
+          <motion.div
+            className="lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end relative"
+            {...entrance(0.6)}
+          >
+            <motion.div
+              ref={portraitRef}
+              className="relative w-full max-w-[420px] sm:max-w-[460px]"
+              style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+                perspective: 1000,
+              }}
+            >
               {/* Offset Decorative Pastel Card with Connected Circular Nodes */}
               <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-emerald-100/70 via-teal-50/50 to-purple-100/50 border border-emerald-200/50 translate-x-3.5 translate-y-3.5 pointer-events-none -z-10">
                 {/* Connected Emerald Nodes / Dots at corners */}
@@ -233,7 +263,7 @@ export default function Hero() {
               </div>
 
               {/* Floating Top-Left Micro Badge */}
-              <div className="absolute -top-4 -left-4 sm:-top-5 sm:-left-6 z-20 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-reverse hover:scale-105 transition-transform cursor-default select-none">
+              <div className="absolute -top-4 -left-3 sm:-top-5 sm:-left-5 z-20 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-reverse hover:scale-105 transition-transform cursor-default select-none">
                 <span className="p-1 rounded-lg bg-emerald-50 text-emerald-600 font-bold text-xs">
                   ⚡
                 </span>
@@ -248,22 +278,7 @@ export default function Hero() {
               </div>
 
               {/* Floating Right-Center Micro Badge */}
-              <div className="absolute top-[42%] -right-4 sm:-right-6 -translate-y-1/2 z-20 px-3 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-diagonal hover:scale-105 transition-transform cursor-default select-none hidden sm:flex">
-                <span className="p-1 rounded-lg bg-purple-50 text-purple-600 font-bold text-xs">
-                  ✦
-                </span>
-                <div className="text-left leading-none">
-                  <span className="text-xs font-extrabold text-slate-900 font-mono block">
-                    5+ Yrs
-                  </span>
-                  <span className="text-[9px] font-semibold text-slate-500">
-                    Teaching &amp; ROI
-                  </span>
-                </div>
-              </div>
-
-              {/* Floating Bottom-Right Micro Badge */}
-              <div className="absolute -bottom-3 -right-2 sm:-bottom-4 sm:-right-4 z-20 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-slow hover:scale-105 transition-transform cursor-default select-none">
+              <div className="absolute top-[38%] -right-3 sm:-right-5 -translate-y-1/2 z-20 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-diagonal hover:scale-105 transition-transform cursor-default select-none hidden sm:flex">
                 <span className="p-1 rounded-lg bg-teal-50 text-teal-600 font-bold text-xs">
                   📈
                 </span>
@@ -278,18 +293,18 @@ export default function Hero() {
               </div>
 
               {/* Main Portrait Frame with Float Animation */}
-              <div className="relative rounded-[2.2rem] bg-slate-900 border-4 border-white shadow-2xl overflow-hidden aspect-[4/4.4] group">
+              <div className="relative rounded-[2.2rem] bg-slate-900 border-4 border-white shadow-2xl overflow-hidden aspect-[4/4.7] sm:aspect-[4/4.6] group">
                 <Image
                   src="/images/naime-hero.jpg"
                   alt={personal.name}
                   fill
                   priority
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  style={{ objectPosition: "28% 18%" }}
+                  style={{ objectPosition: "28% 14%" }}
                 />
 
-                {/* Subtle vignette for contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+                {/* Subtle dark gradient overlay over lower jacket */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-black/25 to-black/10 pointer-events-none" />
 
                 {/* Top-Right Floating Status Pill with Live Radar Wave */}
                 <div className="absolute top-3.5 right-3.5 z-10">
@@ -301,51 +316,42 @@ export default function Hero() {
                     Available for Work
                   </span>
                 </div>
-              </div>
 
-              {/* Overlapping Floating "CURRENT FOCUS" Glass Card with Gentle Float & Interactive Tilt */}
-              <motion.div
-                whileHover={{ scale: 1.03, rotate: 0.5 }}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="shimmer-card glow-beam absolute -bottom-6 -left-4 sm:-bottom-8 sm:-left-6 z-20 w-[90%] sm:w-[320px] p-4 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 space-y-2.5 animate-float-gentle cursor-default"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-extrabold text-emerald-600 tracking-wider uppercase font-mono flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-500 animate-spin-slow" />
-                    CURRENT FOCUS
-                  </span>
-                  <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest font-mono flex items-center gap-1.5">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                {/* Docked Ultra-Sleek CURRENT FOCUS Glass Card INSIDE the Frame */}
+                <div className="absolute bottom-3 sm:bottom-3.5 inset-x-3 sm:inset-x-3.5 z-10 p-3 sm:p-3.5 rounded-2xl bg-slate-950/75 backdrop-blur-xl border border-white/15 shadow-xl text-white space-y-2">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
+                    <span className="text-[10px] font-extrabold text-emerald-400 tracking-wider uppercase font-mono flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-emerald-400 animate-spin-slow" />
+                      CURRENT FOCUS • 2026
                     </span>
-                    2026
-                  </span>
-                </div>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[9px] font-bold text-emerald-300 font-mono">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Active
+                    </span>
+                  </div>
 
-                <div className="space-y-1.5 text-[11px] sm:text-xs text-slate-700 font-medium">
-                  <div className="flex items-center gap-2 hover:translate-x-1 transition-transform">
-                    <span>🚀</span>
-                    <span>Scaling Paid Funnels (100+ Accounts)</span>
-                  </div>
-                  <div className="flex items-center gap-2 hover:translate-x-1 transition-transform">
-                    <span>🏆</span>
-                    <span>NSDA Level-3 Certified Marketer</span>
-                  </div>
-                  <div className="flex items-center gap-2 hover:translate-x-1 transition-transform">
-                    <span>🎓</span>
-                    <span>Mathematics &amp; Marketing Pedagogy (5+ Yrs)</span>
-                  </div>
-                  <div className="flex items-center gap-2 hover:translate-x-1 transition-transform">
-                    <span>⚡</span>
-                    <span>Next Clicker Agency Lead Strategist</span>
+                  <div className="grid grid-cols-2 gap-x-2.5 gap-y-1.5 text-[10px] sm:text-[11px] text-slate-200 font-medium">
+                    <div className="flex items-center gap-1.5 truncate">
+                      <span className="shrink-0 text-xs">🚀</span>
+                      <span className="truncate">100+ Funnels Scaled</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 truncate">
+                      <span className="shrink-0 text-xs">🏆</span>
+                      <span className="truncate">NSDA L-3 Marketer</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 truncate">
+                      <span className="shrink-0 text-xs">🎓</span>
+                      <span className="truncate">5+ Yrs Math Pedagogy</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 truncate">
+                      <span className="shrink-0 text-xs">⚡</span>
+                      <span className="truncate">Agency Lead Strategist</span>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
-            </div>
-          </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 

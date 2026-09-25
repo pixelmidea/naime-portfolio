@@ -12,7 +12,9 @@ import {
   CheckCircle,
   Zap,
 } from "lucide-react";
-import { portfolioData, SkillCategory } from "@/data/portfolio";
+import { portfolioData } from "@/data/portfolio";
+import SparkleParticle from "@/components/SparkleParticle";
+import TiltCard from "@/components/TiltCard";
 
 export default function SkillsStack() {
   const { skillsByCategory } = portfolioData;
@@ -40,31 +42,30 @@ export default function SkillsStack() {
       {/* Ambient background glows and sparkles */}
       <div className="absolute top-10 left-[5%] w-80 h-80 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -z-10 animate-morph-blob" />
       <div className="absolute bottom-10 right-[5%] w-80 h-80 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
-      <div className="absolute top-16 right-[10%] text-emerald-500/40 text-2xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
-        ✦
-      </div>
-      <div className="absolute bottom-20 left-[8%] text-teal-400/40 text-base font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
-        ✧
-      </div>
+      <SparkleParticle className="absolute top-16 right-[10%] hidden sm:block" size="lg" color="emerald" delay={0.6} />
+      <SparkleParticle className="absolute bottom-20 left-[8%] hidden sm:block" size="md" color="teal" variant="four-point-soft" delay={1.3} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12 sm:mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
             <Target className="w-3.5 h-3.5 text-emerald-600" />
             <span>Core Capabilities</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18] mb-4">
-            Digital Marketing Expertise &amp; Tool Stack
+            Digital Marketing Expertise &amp;{" "}
+            <span className="text-emerald-500">
+              Tool Stack.
+            </span>
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Evaluated by practical campaign execution, measurable commercial ROI, and curriculum clarity—not arbitrary percentage bars.
           </p>
         </div>
 
-        {/* Category Selector Tabs */}
+        {/* Category Selector Tabs with Smooth Sliding Pill */}
         <div className="flex flex-wrap items-center gap-2 mb-8">
           {skillsByCategory.map((category, idx) => {
             const Icon = categoryIcons[idx] || Filter;
@@ -75,14 +76,23 @@ export default function SkillsStack() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setActiveCategoryIndex(idx)}
-                className={`relative px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 border ${
+                className={`relative px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 border cursor-pointer ${
                   isActive
-                    ? "bg-emerald-500 text-white border-emerald-500 shadow-md shadow-emerald-500/20"
+                    ? "text-white border-emerald-500 shadow-md shadow-emerald-500/20"
                     : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? "text-emerald-100" : "text-slate-500"}`} />
-                <span>{category.category}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId="skills-active-tab-pill"
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-2">
+                  <Icon className={`w-4 h-4 ${isActive ? "text-emerald-100" : "text-slate-500"}`} />
+                  <span>{category.category}</span>
+                </span>
               </motion.button>
             );
           })}
@@ -115,25 +125,26 @@ export default function SkillsStack() {
             {/* Skills Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
               {currentCategory.skills.map((skill, sIdx) => (
-                <motion.div
-                  key={sIdx}
-                  whileHover={{ y: -4, scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                  className="shimmer-card p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 hover:border-emerald-500/40 hover:bg-white hover:shadow-lg hover:shadow-emerald-500/10 transition-all flex flex-col justify-between group cursor-default"
-                >
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
-                      {skill.name}
+                <TiltCard key={sIdx} maxTilt={5} className="h-full">
+                  <motion.div
+                    whileHover={{ y: -4, scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                    className="shimmer-card p-4 rounded-2xl bg-slate-50/80 border border-slate-200/70 hover:border-emerald-500/40 hover:bg-white hover:shadow-lg hover:shadow-emerald-500/10 transition-all flex flex-col justify-between group cursor-default h-full"
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
+                        {skill.name}
+                      </span>
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                      </span>
+                    </div>
+                    <span className="text-xs text-slate-600 leading-snug">
+                      {skill.focus}
                     </span>
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                    </span>
-                  </div>
-                  <span className="text-xs text-slate-600 leading-snug">
-                    {skill.focus}
-                  </span>
-                </motion.div>
+                  </motion.div>
+                </TiltCard>
               ))}
             </div>
           </motion.div>

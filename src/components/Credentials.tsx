@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Award, GraduationCap, CheckCircle2, ShieldCheck, Eye, X, ExternalLink } from "lucide-react";
+import { Award, CheckCircle2, ShieldCheck, Eye, X } from "lucide-react";
 import { portfolioData, CredentialItem } from "@/data/portfolio";
 
 export default function Credentials() {

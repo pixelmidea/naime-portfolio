@@ -107,6 +107,13 @@ export interface ReferenceItem {
   email?: string;
 }
 
+export interface BookingData {
+  title: string;
+  subtitle: string;
+  badge: string;
+  calendlyUrl: string;
+}
+
 export const portfolioData = {
   personal: {
     name: "Naime",
@@ -520,4 +527,11 @@ export const portfolioData = {
       email: "ad.admin@niyd.gov.bd",
     },
   ] as ReferenceItem[],
+
+  booking: {
+    badge: "Direct Calendar Access • Instant Confirmation",
+    title: "Schedule a Strategy & Discovery Call",
+    subtitle: "Let's connect to share ideas, collaborate, discuss campaign growth, or explore training cohorts. Pick a time directly on the calendar below.",
+    calendlyUrl: "https://calendly.com/stamai/shine_with_naime",
+  } as BookingData,
 };

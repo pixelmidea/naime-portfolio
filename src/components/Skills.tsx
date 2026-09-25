@@ -1,4 +1,4 @@
-import { Target, Layers, ArrowUpRight } from "lucide-react";
+import { Target } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Skills() {

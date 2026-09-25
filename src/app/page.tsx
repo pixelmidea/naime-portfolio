@@ -4,6 +4,7 @@ import DualEdgeBento from "@/components/DualEdgeBento";
 import ImpactCaseStudies from "@/components/ImpactCaseStudies";
 import SkillsStack from "@/components/SkillsStack";
 import CareerAndTrust from "@/components/CareerAndTrust";
+import CalendlySection from "@/components/CalendlySection";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -28,7 +29,7 @@ export default function Home() {
       {/* Dynamic Navigation */}
       <Navbar />
 
-      {/* Main Content Stream (6 Curated Sections) */}
+      {/* Main Content Stream (Curated Sections) */}
       <main className="relative z-10 flex-1 flex flex-col">
         {/* 1. Hero with Floating Portrait, Focus Badges & Clean Pill CTAs */}
         <Hero />
@@ -45,7 +46,10 @@ export default function Home() {
         {/* 5. Career Evolution, Verified Credentials & Direct Endorsements */}
         <CareerAndTrust />
 
-        {/* 6. High-Conversion Booking & Inquiry Hub */}
+        {/* 6. Instant Calendar Booking: 15-Min & 30-Min Strategy Call */}
+        <CalendlySection />
+
+        {/* 7. High-Conversion Inquiry Hub & Direct Channels */}
         <Contact />
       </main>
 

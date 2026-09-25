@@ -1,4 +1,4 @@
-import { Briefcase, Lock, CheckCircle2, Layers, ArrowUpRight } from "lucide-react";
+import { Briefcase, Lock, CheckCircle2, ArrowUpRight } from "lucide-react";
 import { portfolioData, CaseStudy } from "@/data/portfolio";
 
 export default function Projects() {
@@ -28,7 +28,7 @@ export default function Projects() {
 
         {/* Case Studies Grid */}
         <div className="space-y-8">
-          {caseStudies.map((cs: CaseStudy, idx: number) => (
+          {caseStudies.map((cs: CaseStudy) => (
             <div
               key={cs.id}
               className="editorial-card p-6 sm:p-8 rounded-2xl bg-white space-y-6 hover:border-[#1e3a8a]/30"

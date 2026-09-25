@@ -15,18 +15,15 @@ export default function AnimatedCounter({
   duration = 1.6,
 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20px" });
-  const [displayValue, setDisplayValue] = useState<string>("0");
+  const isInView = useInView(ref, { once: true });
+  const isNumeric = /^([^\d]*)(\d+)([^\d]*)$/.test(value);
+  const [displayValue, setDisplayValue] = useState<string>(() => (isNumeric ? "0" : value));
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || !isNumeric) return;
 
-    // Extract numerical part and suffix/prefix (e.g., "100+" -> num: 100, suffix: "+", "Level-3" -> custom)
     const match = value.match(/^([^\d]*)(\d+)([^\d]*)$/);
-    if (!match) {
-      setDisplayValue(value);
-      return;
-    }
+    if (!match) return;
 
     const prefix = match[1] || "";
     const targetNumber = parseInt(match[2], 10);
@@ -55,7 +52,7 @@ export default function AnimatedCounter({
     animationFrameId = requestAnimationFrame(step);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isInView, value, duration]);
+  }, [isInView, isNumeric, value, duration]);
 
   return (
     <span ref={ref} className={className}>

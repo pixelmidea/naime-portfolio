@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Mail,
   Phone,
@@ -10,16 +10,18 @@ import {
   Check,
   Copy,
   MessageSquare,
-  Sparkles,
   ArrowUpRight,
 } from "lucide-react";
 import { LinkedinIcon } from "@/components/SocialIcons";
 import { portfolioData } from "@/data/portfolio";
+import SparkleParticle from "@/components/SparkleParticle";
+import TiltCard from "@/components/TiltCard";
 
 export default function Contact() {
   const { personal } = portfolioData;
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -29,15 +31,22 @@ export default function Contact() {
     message: "",
   });
 
+  const showToastNotification = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personal.email);
     setCopiedEmail(true);
+    showToastNotification("Email copied to clipboard!");
     setTimeout(() => setCopiedEmail(false), 2000);
   };
 
   const handleCopyPhone = () => {
     navigator.clipboard.writeText(personal.phone);
     setCopiedPhone(true);
+    showToastNotification("Phone number copied to clipboard!");
     setTimeout(() => setCopiedPhone(false), 2000);
   };
 
@@ -50,6 +59,7 @@ export default function Contact() {
     )}`;
     window.location.href = mailtoUrl;
     setSubmitted(true);
+    showToastNotification("Opening your email client...");
     setTimeout(() => setSubmitted(false), 4000);
   };
 
@@ -62,15 +72,28 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative py-16 sm:py-20 lg:py-24 bg-white border-t border-slate-100 overflow-hidden">
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 15, scale: 0.95 }}
+            className="fixed bottom-6 right-6 z-[9995] px-4 py-3 rounded-2xl bg-slate-900 text-white border border-emerald-500/40 shadow-2xl flex items-center gap-3 backdrop-blur-xl"
+          >
+            <div className="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+              <Check className="w-4 h-4" />
+            </div>
+            <span className="text-xs font-semibold text-slate-200">{toastMessage}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Ambient background glows and sparkles */}
       <div className="absolute top-10 -left-10 w-80 h-80 bg-emerald-100/35 rounded-full blur-3xl pointer-events-none -z-10 animate-morph-blob" />
       <div className="absolute bottom-10 right-0 w-80 h-80 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
-      <div className="absolute top-12 left-[8%] text-emerald-500/40 text-xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
-        ✦
-      </div>
-      <div className="absolute bottom-24 right-[7%] text-teal-400/40 text-sm font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
-        ✧
-      </div>
+      <SparkleParticle className="absolute top-12 left-[8%] hidden sm:block" size="lg" color="emerald" delay={0.3} />
+      <SparkleParticle className="absolute bottom-24 right-[7%] hidden sm:block" size="md" color="teal" variant="four-point-soft" delay={1.1} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Banner Card */}
@@ -78,14 +101,10 @@ export default function Contact() {
           {/* Luminous emerald glow in the banner */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/20 blur-3xl rounded-full pointer-events-none animate-morph-blob" />
           <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-teal-500/15 blur-3xl rounded-full pointer-events-none animate-pulse-glow" />
-          <div className="absolute top-6 right-10 text-emerald-400/50 text-xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
-            ✦
-          </div>
-          <div className="absolute bottom-8 right-28 text-teal-300/40 text-sm font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
-            ✧
-          </div>
+          <SparkleParticle className="absolute top-6 right-10 hidden sm:block" size="lg" color="emerald" delay={0.5} />
+          <SparkleParticle className="absolute bottom-8 right-28 hidden sm:block" size="sm" color="teal" variant="diamond" delay={1.4} />
 
-          <div className="relative z-10 max-w-2xl space-y-4">
+          <div className="relative z-10 max-w-2xl mx-auto text-center space-y-4 flex flex-col items-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider font-mono">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -99,11 +118,11 @@ export default function Contact() {
               <span className="text-emerald-400">exceptional.</span>
             </h2>
 
-            <p className="text-base text-slate-300 leading-relaxed">
+            <p className="text-base text-slate-300 leading-relaxed max-w-xl">
               Whether you need an articulate, structured instructor for your next marketing cohort or a battle-tested strategist to scale performance marketing campaigns, let&apos;s start the conversation.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
               <motion.a
                 whileHover={{ y: -3, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -144,101 +163,107 @@ export default function Contact() {
 
             <div className="space-y-3">
               {/* Email */}
-              <motion.div
-                whileHover={{ y: -3, x: 2, scale: 1.015 }}
-                transition={{ duration: 0.2 }}
-                className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block font-mono">
-                      Direct Email
-                    </span>
-                    <a
-                      href={`mailto:${personal.email}`}
-                      className="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-600 transition-colors"
-                    >
-                      {personal.email}
-                    </a>
-                  </div>
-                </div>
-                <button
-                  onClick={handleCopyEmail}
-                  className="p-2 text-slate-400 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
-                  title="Copy email"
+              <TiltCard maxTilt={5}>
+                <motion.div
+                  whileHover={{ y: -2, scale: 1.01 }}
+                  transition={{ duration: 0.2 }}
+                  className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
                 >
-                  {copiedEmail ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
-                </button>
-              </motion.div>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block font-mono">
+                        Direct Email
+                      </span>
+                      <a
+                        href={`mailto:${personal.email}`}
+                        className="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-600 transition-colors"
+                      >
+                        {personal.email}
+                      </a>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleCopyEmail}
+                    className="p-2 text-slate-400 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                    title="Copy email"
+                  >
+                    {copiedEmail ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+                  </button>
+                </motion.div>
+              </TiltCard>
 
               {/* Phone */}
-              <motion.div
-                whileHover={{ y: -3, x: 2, scale: 1.015 }}
-                transition={{ duration: 0.2 }}
-                className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block font-mono">
-                      Phone / WhatsApp
-                    </span>
-                    <a
-                      href={`tel:${personal.phone}`}
-                      className="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-600 font-mono transition-colors"
-                    >
-                      {personal.phone}
-                    </a>
-                  </div>
-                </div>
-                <button
-                  onClick={handleCopyPhone}
-                  className="p-2 text-slate-400 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
-                  title="Copy phone"
+              <TiltCard maxTilt={5}>
+                <motion.div
+                  whileHover={{ y: -2, scale: 1.01 }}
+                  transition={{ duration: 0.2 }}
+                  className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
                 >
-                  {copiedPhone ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
-                </button>
-              </motion.div>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
+                      <Phone className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block font-mono">
+                        Phone / WhatsApp
+                      </span>
+                      <a
+                        href={`tel:${personal.phone}`}
+                        className="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-600 font-mono transition-colors"
+                      >
+                        {personal.phone}
+                      </a>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleCopyPhone}
+                    className="p-2 text-slate-400 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                    title="Copy phone"
+                  >
+                    {copiedPhone ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+                  </button>
+                </motion.div>
+              </TiltCard>
 
               {/* LinkedIn */}
-              <motion.div
-                whileHover={{ y: -3, x: 2, scale: 1.015 }}
-                transition={{ duration: 0.2 }}
-                className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
-                    <LinkedinIcon className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block font-mono">
-                      LinkedIn Profile
-                    </span>
-                    <a
-                      href={personal.socials.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-600 transition-colors"
-                    >
-                      shinewithnaime
-                    </a>
-                  </div>
-                </div>
-                <a
-                  href={personal.socials.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 text-slate-400 hover:text-emerald-600 rounded-lg hover:bg-slate-100 transition-colors"
-                  title="Open LinkedIn"
+              <TiltCard maxTilt={5}>
+                <motion.div
+                  whileHover={{ y: -2, scale: 1.01 }}
+                  transition={{ duration: 0.2 }}
+                  className="editorial-card shimmer-card glow-beam p-4 rounded-2xl bg-white border border-slate-100 flex items-center justify-between shadow-sm hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
                 >
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
-              </motion.div>
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
+                      <LinkedinIcon className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block font-mono">
+                        LinkedIn Profile
+                      </span>
+                      <a
+                        href={personal.socials.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs sm:text-sm font-bold text-slate-900 hover:text-emerald-600 transition-colors"
+                      >
+                        shinewithnaime
+                      </a>
+                    </div>
+                  </div>
+                  <a
+                    href={personal.socials.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 text-slate-400 hover:text-emerald-600 rounded-lg hover:bg-slate-100 transition-colors"
+                    title="Open LinkedIn"
+                  >
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                </motion.div>
+              </TiltCard>
 
               {/* Location */}
               <motion.div

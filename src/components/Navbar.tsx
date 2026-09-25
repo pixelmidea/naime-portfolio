@@ -23,6 +23,7 @@ export default function Navbar() {
     { name: "Case Studies", href: "#work" },
     { name: "Skills", href: "#expertise" },
     { name: "Experience", href: "#experience" },
+    { name: "Book Call", href: "#book" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -72,11 +73,11 @@ export default function Navbar() {
           <motion.a
             whileHover={{ scale: 1.05, y: -1 }}
             whileTap={{ scale: 0.96 }}
-            href="#contact"
+            href="#book"
             id="nav-instructor-cta"
             className="shimmer-card inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-md shadow-emerald-500/20 transition-all"
           >
-            <span>Contact Me</span>
+            <span>Book a Call</span>
             <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
           </motion.a>
         </div>
@@ -112,13 +113,20 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col gap-2">
               <a
-                href="#contact"
+                href="#book"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-full text-xs font-bold bg-emerald-500 text-white hover:bg-emerald-600 shadow-md shadow-emerald-500/20"
               >
-                <span>Contact Me</span>
+                <span>Book a Call (15 / 30 Min)</span>
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200"
+              >
+                <span>Direct Contact</span>
               </a>
             </div>
           </motion.div>

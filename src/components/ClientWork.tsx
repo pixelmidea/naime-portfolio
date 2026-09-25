@@ -1,4 +1,4 @@
-import { Globe2, Users, ArrowRight, MessageSquare, BarChart3, Calendar, Layers, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Globe2, ArrowRight, MessageSquare, BarChart3, Calendar, Layers } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
 export default function ClientWork() {

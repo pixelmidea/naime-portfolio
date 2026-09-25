@@ -1,4 +1,4 @@
-import { UserCheck, Phone, Mail, Building2, Shield } from "lucide-react";
+import { UserCheck, Phone, Mail, Building2 } from "lucide-react";
 import { portfolioData, ReferenceItem } from "@/data/portfolio";
 
 export default function References() {

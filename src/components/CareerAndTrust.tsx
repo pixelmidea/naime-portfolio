@@ -12,6 +12,8 @@ import {
   UserCheck,
 } from "lucide-react";
 import { portfolioData, ExperienceItem, CredentialItem, ReferenceItem } from "@/data/portfolio";
+import SparkleParticle from "@/components/SparkleParticle";
+import TiltCard from "@/components/TiltCard";
 
 export default function CareerAndTrust() {
   const { experiences, credentials, references } = portfolioData;
@@ -27,16 +29,12 @@ export default function CareerAndTrust() {
       {/* Ambient background glows and sparkles */}
       <div className="absolute top-20 right-[5%] w-80 h-80 bg-emerald-100/35 rounded-full blur-3xl pointer-events-none -z-10 animate-morph-blob" />
       <div className="absolute bottom-20 left-[5%] w-72 h-72 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10 animate-pulse-glow" />
-      <div className="absolute top-16 left-[6%] text-emerald-500/40 text-xl font-serif pointer-events-none select-none animate-twinkle hidden sm:block">
-        ✦
-      </div>
-      <div className="absolute top-40 right-[8%] text-teal-400/40 text-sm font-serif pointer-events-none select-none animate-twinkle-delayed hidden sm:block">
-        ✧
-      </div>
+      <SparkleParticle className="absolute top-16 left-[6%] hidden sm:block" size="lg" color="emerald" delay={0.4} />
+      <SparkleParticle className="absolute top-40 right-[8%] hidden sm:block" size="sm" color="teal" variant="four-point-soft" delay={1.2} />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12 sm:mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
             <Award className="w-3.5 h-3.5 text-emerald-600" />
             <span>Credibility &amp; Track Record</span>
@@ -49,7 +47,7 @@ export default function CareerAndTrust() {
             </span>
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Institutional certifications, formal teaching discipline, and active agency execution attested by government and industry leaders.
           </p>
         </div>
@@ -105,8 +103,9 @@ export default function CareerAndTrust() {
               </div>
             </div>
 
-            {/* Timeline Stream */}
-            <div className="relative border-l-2 border-slate-200 ml-3 sm:ml-4 space-y-6 pl-5 sm:pl-7">
+            {/* Timeline Stream with Gradient Spine */}
+            <div className="relative ml-3 sm:ml-4 space-y-6 pl-5 sm:pl-7">
+              <div className="absolute top-2 bottom-2 left-0 w-0.5 bg-gradient-to-b from-emerald-500 via-teal-400 to-slate-200 rounded-full" />
               {filteredExperiences.map((exp: ExperienceItem, idx: number) => {
                 const isMarketing = exp.type === "marketing";
                 return (
@@ -120,59 +119,61 @@ export default function CareerAndTrust() {
                   >
                     {/* Node Dot */}
                     <div
-                      className={`absolute -left-[27px] sm:-left-[35px] top-1.5 w-3.5 h-3.5 rounded-full border-2 transition-all ${
+                      className={`absolute -left-[27px] sm:-left-[35px] top-3 w-3.5 h-3.5 rounded-full border-2 transition-all ${
                         isMarketing
-                          ? "bg-white border-emerald-500 group-hover:bg-emerald-500 group-hover:scale-125"
-                          : "bg-white border-teal-500 group-hover:bg-teal-500 group-hover:scale-125"
+                          ? "bg-white border-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] group-hover:bg-emerald-500 group-hover:scale-125"
+                          : "bg-white border-teal-500 shadow-[0_0_8px_rgba(20,184,166,0.5)] group-hover:bg-teal-500 group-hover:scale-125"
                       }`}
                     />
 
-                    {/* Role Card */}
-                    <motion.div
-                      whileHover={{ y: -5, scale: 1.015 }}
-                      transition={{ duration: 0.2 }}
-                      className="editorial-card shimmer-card glow-beam p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all space-y-3"
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <div>
-                          <span
-                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                              isMarketing
-                                ? "bg-emerald-50 text-emerald-800 border border-emerald-200/80"
-                                : "bg-teal-50 text-teal-800 border border-teal-200/80"
-                            }`}
-                          >
-                            {isMarketing ? "Digital Marketing" : "Mathematics Instruction"}
+                    {/* Role Card with Tilt */}
+                    <TiltCard maxTilt={5}>
+                      <motion.div
+                        whileHover={{ y: -3, scale: 1.01 }}
+                        transition={{ duration: 0.2 }}
+                        className="editorial-card shimmer-card glow-beam p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all space-y-3"
+                      >
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div>
+                            <span
+                              className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                                isMarketing
+                                  ? "bg-emerald-50 text-emerald-800 border border-emerald-200/80"
+                                  : "bg-teal-50 text-teal-800 border border-teal-200/80"
+                              }`}
+                            >
+                              {isMarketing ? "Digital Marketing" : "Mathematics Instruction"}
+                            </span>
+                            <h4 className="text-base font-bold text-slate-900 mt-1">
+                              {exp.role}
+                            </h4>
+                            <p className="text-xs font-semibold text-slate-700">
+                              {exp.company} • <span className="font-normal text-slate-500">{exp.location}</span>
+                            </p>
+                          </div>
+
+                          <span className="text-[11px] font-mono text-slate-500 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-200">
+                            {exp.period}
                           </span>
-                          <h4 className="text-base font-bold text-slate-900 mt-1">
-                            {exp.role}
-                          </h4>
-                          <p className="text-xs font-semibold text-slate-700">
-                            {exp.company} • <span className="font-normal text-slate-500">{exp.location}</span>
-                          </p>
                         </div>
 
-                        <span className="text-[11px] font-mono text-slate-500 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-200">
-                          {exp.period}
-                        </span>
-                      </div>
+                        <p className="text-xs text-slate-600 leading-relaxed">
+                          {exp.description}
+                        </p>
 
-                      <p className="text-xs text-slate-600 leading-relaxed">
-                        {exp.description}
-                      </p>
-
-                      {/* Skills tags */}
-                      <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100">
-                        {exp.skills.map((s, sIdx) => (
-                          <span
-                            key={sIdx}
-                            className="text-[10px] font-medium text-slate-600 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-200"
-                          >
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
+                        {/* Skills tags */}
+                        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100">
+                          {exp.skills.map((s, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className="text-[10px] font-medium text-slate-600 bg-slate-50 px-2 py-0.5 rounded-full border border-slate-200"
+                            >
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </TiltCard>
                   </motion.div>
                 );
               })}
@@ -190,35 +191,36 @@ export default function CareerAndTrust() {
 
             <div className="space-y-4">
               {credentials.map((cred: CredentialItem) => (
-                <motion.div
-                  key={cred.id}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                  className="editorial-card shimmer-card glow-beam p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all space-y-3"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider border border-emerald-200/80">
-                      {cred.type === "certification" ? "Government Certified" : "Higher Education"}
-                    </span>
-                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  </div>
+                <TiltCard key={cred.id} maxTilt={6}>
+                  <motion.div
+                    whileHover={{ y: -3, scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                    className="editorial-card shimmer-card glow-beam p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 transition-all space-y-3"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full uppercase tracking-wider border border-emerald-200/80">
+                        {cred.type === "certification" ? "Government Certified" : "Higher Education"}
+                      </span>
+                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    </div>
 
-                  <div>
-                    <h4 className="text-base font-bold text-slate-900">
-                      {cred.title}
-                    </h4>
-                    <p className="text-xs font-semibold text-slate-800">
-                      {cred.issuer}
-                    </p>
-                    <p className="text-[11px] text-slate-500 font-medium">
-                      {cred.authority}
-                    </p>
-                  </div>
+                    <div>
+                      <h4 className="text-base font-bold text-slate-900">
+                        {cred.title}
+                      </h4>
+                      <p className="text-xs font-semibold text-slate-800">
+                        {cred.issuer}
+                      </p>
+                      <p className="text-[11px] text-slate-500 font-medium">
+                        {cred.authority}
+                      </p>
+                    </div>
 
-                  <p className="text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
-                    {cred.description}
-                  </p>
-                </motion.div>
+                    <p className="text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-2">
+                      {cred.description}
+                    </p>
+                  </motion.div>
+                </TiltCard>
               ))}
             </div>
           </div>
@@ -242,51 +244,52 @@ export default function CareerAndTrust() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {references.map((ref: ReferenceItem, idx: number) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -4, scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-                className="shimmer-card p-5 rounded-2xl bg-white border border-slate-100 space-y-3 shadow-2xs hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shadow-sm">
-                      {ref.name.split(" ").map((n) => n[0]).join("")}
+              <TiltCard key={idx} maxTilt={5}>
+                <motion.div
+                  whileHover={{ y: -3, scale: 1.01 }}
+                  transition={{ duration: 0.2 }}
+                  className="shimmer-card p-5 rounded-2xl bg-white border border-slate-100 space-y-3 shadow-2xs hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 transition-all cursor-default h-full"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                        {ref.name.split(" ").map((n) => n[0]).join("")}
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-slate-900">{ref.name}</h4>
+                        <p className="text-xs font-semibold text-emerald-600">{ref.role}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-900">{ref.name}</h4>
-                      <p className="text-xs font-semibold text-emerald-600">{ref.role}</p>
-                    </div>
+                    <UserCheck className="w-4 h-4 text-emerald-500" />
                   </div>
-                  <UserCheck className="w-4 h-4 text-emerald-500" />
-                </div>
 
-                <p className="text-xs text-slate-600 flex items-center gap-1.5 font-medium">
-                  <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span>{ref.organization}</span>
-                </p>
+                  <p className="text-xs text-slate-600 flex items-center gap-1.5 font-medium">
+                    <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span>{ref.organization}</span>
+                  </p>
 
-                <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-3 text-xs">
-                  {ref.phone && (
-                    <a
-                      href={`tel:${ref.phone}`}
-                      className="text-slate-700 hover:text-emerald-600 flex items-center gap-1 font-mono font-medium"
-                    >
-                      <Phone className="w-3 h-3 text-slate-400" />
-                      <span>{ref.phone}</span>
-                    </a>
-                  )}
-                  {ref.email && (
-                    <a
-                      href={`mailto:${ref.email}`}
-                      className="text-slate-700 hover:text-emerald-600 flex items-center gap-1 font-mono font-medium"
-                    >
-                      <Mail className="w-3 h-3 text-slate-400" />
-                      <span>{ref.email}</span>
-                    </a>
-                  )}
-                </div>
-              </motion.div>
+                  <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-3 text-xs">
+                    {ref.phone && (
+                      <a
+                        href={`tel:${ref.phone}`}
+                        className="text-slate-700 hover:text-emerald-600 flex items-center gap-1 font-mono font-medium"
+                      >
+                        <Phone className="w-3 h-3 text-slate-400" />
+                        <span>{ref.phone}</span>
+                      </a>
+                    )}
+                    {ref.email && (
+                      <a
+                        href={`mailto:${ref.email}`}
+                        className="text-slate-700 hover:text-emerald-600 flex items-center gap-1 font-mono font-medium"
+                      >
+                        <Mail className="w-3 h-3 text-slate-400" />
+                        <span>{ref.email}</span>
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              </TiltCard>
             ))}
           </div>
         </div>
