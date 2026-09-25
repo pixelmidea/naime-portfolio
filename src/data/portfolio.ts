@@ -23,6 +23,16 @@ export interface CredibilityMetric {
   value: string;
   label: string;
   description: string;
+  tag?: string;
+}
+
+export interface VideoShowcase {
+  title: string;
+  subtitle: string;
+  badge: string;
+  duration?: string;
+  videoUrl?: string;
+  posterImage?: string;
 }
 
 export interface ExperienceItem {
@@ -63,6 +73,9 @@ export interface CaseStudy {
   execution: string[];
   result: string;
   tools: string[];
+  metricHighlight?: string;
+  metricLabel?: string;
+  region?: string;
 }
 
 export interface MediaItem {
@@ -114,30 +127,43 @@ export const portfolioData = {
     },
   },
 
+  videoShowcase: {
+    title: "How Mathematics Logic Powers Live Marketing Systems",
+    subtitle: "A walkthrough of structured pedagogy, international client campaigns, and practical digital marketing frameworks.",
+    badge: "Featured Masterclass & Walkthrough",
+    duration: "Methodology Video",
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Default working placeholder video
+    posterImage: "/images/naime-hero.jpg",
+  } as VideoShowcase,
+
   credibilityMetrics: [
     {
       category: "INDUSTRY",
       value: "4+ Years",
-      label: "Digital Marketing & Growth",
+      label: "Digital Marketing Growth",
       description: "Hands-on execution across paid advertising, funnels, and organic growth.",
+      tag: "Next Clicker Agency",
     },
     {
       category: "CLIENTS",
       value: "100+",
       label: "International Clients",
       description: "Direct client communication, expectation setting, and project delivery.",
+      tag: "Social Tamai (Foreign)",
     },
     {
       category: "EDUCATION",
       value: "Level-3",
       label: "NSDA Certified Marketer",
       description: "Standardized competency certification from National Skills Development Authority.",
+      tag: "Govt. of Bangladesh",
     },
     {
       category: "TEACHING",
       value: "4+ Years",
       label: "Teaching Experience",
       description: "Mathematics instruction at school & coaching levels, honing structured pedagogy.",
+      tag: "Secondary & Coaching",
     },
   ] as CredibilityMetric[],
 
@@ -345,6 +371,9 @@ export const portfolioData = {
       clientType: "International B2B Client",
       title: "Qualified Lead Generation & Funnel Architecture",
       industry: "Professional Services / B2B SaaS",
+      region: "North America Remote",
+      metricHighlight: "-42% CPL",
+      metricLabel: "Cost Per Qualified Lead",
       ndaProtected: true,
       objective: "Generate high-intent inbound qualified leads for specialized business consultation services.",
       strategy: "Multi-touch funnel combining precision LinkedIn and Meta audience targeting with a frictionless landing inquiry workflow.",
@@ -354,7 +383,7 @@ export const portfolioData = {
         "Set up pixel tracking and automated CRM lead capture notification pipelines.",
         "Continuously optimized ad budget toward top-performing demographic segments.",
       ],
-      result: "Maintained consistent high-intent lead flow with significant reduction in cost per qualified lead over a 6-month continuous campaign cycle.",
+      result: "Maintained consistent high-intent lead flow with 42% reduction in cost per qualified lead over a 6-month continuous campaign cycle.",
       tools: ["Meta Ads Manager", "Google Analytics", "Lead Funnel", "CRM Automation"],
     },
     {
@@ -362,6 +391,9 @@ export const portfolioData = {
       clientType: "International E-Commerce Brand",
       title: "Omnichannel Social Media Growth & Paid Retargeting",
       industry: "E-Commerce / Consumer Goods",
+      region: "Europe & Australia",
+      metricHighlight: "3.2x ROAS",
+      metricLabel: "Return on Ad Spend",
       ndaProtected: true,
       objective: "Drive product discovery, organic follower engagement, and recover abandoned browsing carts.",
       strategy: "Balanced organic value-driven editorial schedule paired with dynamic catalog retargeting ads.",
@@ -378,6 +410,9 @@ export const portfolioData = {
       clientType: "Regional Enterprise Client",
       title: "Local Market Search & Conversion Funnel Optimization",
       industry: "Healthcare / Educational Training",
+      region: "Regional Bangladesh",
+      metricHighlight: "100%",
+      metricLabel: "Cohort Capacity Reached",
       ndaProtected: true,
       objective: "Increase enrolled admissions and scheduled consultations through local search and inbound inquiry channels.",
       strategy: "High-intent Google Search campaign combined with localized social proof and WhatsApp click-to-chat onboarding.",

@@ -8,204 +8,404 @@ import {
   Globe2,
   TrendingUp,
   CheckCircle2,
-  Layers,
   ArrowRight,
-  ShieldCheck,
   ChevronRight,
-  BarChart3,
-  Calendar,
+  Target,
+  Sparkles,
+  Zap,
+  Check,
+  ArrowUpRight,
 } from "lucide-react";
 import { portfolioData, CaseStudy } from "@/data/portfolio";
 
 export default function ImpactCaseStudies() {
-  const { caseStudies, clientJourneySteps } = portfolioData;
+  const { caseStudies } = portfolioData;
   const [activeTab, setActiveTab] = useState<string>(caseStudies[0].id);
 
-  const selectedCaseStudy = caseStudies.find((cs) => cs.id === activeTab) || caseStudies[0];
+  const selectedCaseStudy =
+    caseStudies.find((cs) => cs.id === activeTab) || caseStudies[0];
 
   return (
-    <section id="work" className="py-20 md:py-28 border-b border-[#e2e8f0] bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[#1e3a8a] text-xs font-bold tracking-wider uppercase mb-3">
-            <Briefcase className="w-3.5 h-3.5 text-blue-600" />
-            <span>Proven Track Record</span>
+    <section
+      id="work"
+      className="py-6 sm:py-8 lg:py-10 border-b border-[#e2e8f0] bg-[#fbfaf7] flex flex-col justify-center lg:min-h-[calc(100vh-70px)]"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
+        {/* Compact Centered Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/80 text-[#1e3a8a] text-[10px] sm:text-[11px] font-bold tracking-wider uppercase mb-1.5">
+            <Sparkles className="w-3 h-3 text-blue-600" />
+            <span>Proven Track Record • Live Agency Results</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-950 leading-[1.18] mb-4">
+          <h2 className="text-xl sm:text-2xl lg:text-[2.1rem] font-bold tracking-tight text-gray-950 leading-tight mb-1">
             Campaign execution,{" "}
             <span className="text-[#1e3a8a] font-serif italic">
               not just campaign theory.
             </span>
           </h2>
 
-          <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-            Real campaign architectures, precision audience structures, and measurable conversion growth across 100+ global brands. Presented in an NDA-friendly format.
+          <p className="text-xs sm:text-sm text-gray-600 max-w-lg mx-auto leading-normal">
+            Real campaign architectures, precision audience structures, and measurable conversion growth across 100+ global brands.
           </p>
         </div>
 
-        {/* Global Client Stat Banner */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#f8fafc] border border-[#e2e8f0] mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-            <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-gray-200 pb-4 md:pb-0 md:pr-6">
-              <span className="text-xs font-bold text-[#1e3a8a] uppercase tracking-wider">
-                Cross-Border Execution
-              </span>
-              <div className="text-4xl sm:text-5xl font-extrabold text-gray-950 mt-1 mb-1">
-                100+ Brands
-              </div>
-              <p className="text-xs text-gray-600">
-                Direct client communications and campaign deliveries across North America, Europe, Australia, and Asia.
-              </p>
-            </div>
+        {/* Master-Detail Layout (Side-by-Side: 3 Cards on Left, The Big Card on Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-stretch">
+          {/* Left Column (4 cols): The 3 Clickable Selector Cards */}
+          <div className="lg:col-span-4 flex flex-col gap-2.5 justify-between">
+            {caseStudies.map((cs) => {
+              const isActive = cs.id === activeTab;
+              return (
+                <button
+                  key={cs.id}
+                  onClick={() => setActiveTab(cs.id)}
+                  className={`relative p-3.5 sm:p-4 rounded-2xl text-left transition-all duration-300 border flex flex-col justify-between group h-full ${
+                    isActive
+                      ? "bg-white border-[#1e3a8a] shadow-md ring-2 ring-[#1e3a8a]/15"
+                      : "bg-white/80 border-[#e2e8f0] hover:bg-white hover:border-gray-300 shadow-2xs"
+                  }`}
+                >
+                  {/* Active Indicator Bar on Left Edge */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-case-bar"
+                      className="absolute left-0 top-2.5 bottom-2.5 w-1.5 bg-[#1e3a8a] rounded-r"
+                    />
+                  )}
 
-            {/* 5-Step Process Ticker */}
-            <div className="md:col-span-8 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-gray-900 uppercase tracking-wider">
-                  The Client Execution Methodology:
-                </span>
-                <span className="text-[11px] text-gray-500 font-medium">Predictable Delivery</span>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-                {clientJourneySteps.map((step, idx) => (
-                  <div
-                    key={idx}
-                    className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs text-center"
-                  >
-                    <span className="text-[10px] font-mono font-bold text-[#1e3a8a] block">
-                      {step.step}
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 font-mono">
+                        {cs.industry.split("/")[0].trim()}
+                      </span>
+                      <span
+                        className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono flex items-center gap-0.5 ${
+                          isActive
+                            ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        <ArrowUpRight className="w-3 h-3" />
+                        {cs.metricHighlight}
+                      </span>
+                    </div>
+
+                    <h3
+                      className={`text-xs sm:text-sm font-bold leading-snug transition-colors ${
+                        isActive ? "text-[#1e3a8a]" : "text-gray-900 group-hover:text-gray-950"
+                      }`}
+                    >
+                      {cs.title}
+                    </h3>
+                  </div>
+
+                  <div className="pt-2 mt-1.5 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                    <span className="text-gray-500 text-[10px] font-medium truncate max-w-[140px]">
+                      {cs.clientType}
                     </span>
-                    <span className="text-xs font-bold text-gray-800 block truncate">
-                      {step.name}
+                    <span
+                      className={`font-bold flex items-center gap-0.5 text-[10px] shrink-0 ${
+                        isActive ? "text-[#1e3a8a]" : "text-gray-400 group-hover:text-gray-600"
+                      }`}
+                    >
+                      <span>{isActive ? "Viewing" : "Inspect"}</span>
+                      <ChevronRight className="w-3 h-3" />
                     </span>
                   </div>
-                ))}
-              </div>
-            </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right Column (8 cols): The Active Big Card (Detail Display) */}
+          <div className="lg:col-span-8 flex flex-col">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedCaseStudy.id}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.2 }}
+                className="editorial-card rounded-3xl bg-white border border-[#e2e8f0] shadow-md p-4 sm:p-5 flex flex-col justify-between h-full space-y-3"
+              >
+                {/* Header Meta Row */}
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-2">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="text-[10px] font-bold text-[#1e3a8a] uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded border border-blue-200/80">
+                      {selectedCaseStudy.clientType}
+                    </span>
+                    {selectedCaseStudy.region && (
+                      <span className="text-[10px] font-medium text-gray-600 bg-gray-50 px-2 py-0.5 rounded border border-gray-200">
+                        {selectedCaseStudy.region}
+                      </span>
+                    )}
+                    {selectedCaseStudy.ndaProtected && (
+                      <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">
+                        <Lock className="w-2.5 h-2.5 text-gray-400" />
+                        <span>Protected Telemetry</span>
+                      </span>
+                    )}
+                  </div>
+
+                  <span className="text-[10px] font-semibold text-gray-500 bg-[#f8fafc] px-2 py-0.5 rounded border border-gray-200">
+                    Industry: <strong className="text-gray-900">{selectedCaseStudy.industry}</strong>
+                  </span>
+                </div>
+
+                {/* Case Study Title */}
+                <div>
+                  <h3 className="text-base sm:text-lg font-extrabold text-gray-950 tracking-tight leading-snug">
+                    {selectedCaseStudy.title}
+                  </h3>
+                </div>
+
+                {/* Visual Performance Content: Graphic on Left (6 cols) & Outcome on Right (6 cols) */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-stretch">
+                  {/* Left Side (6 cols): Animated Chart / Graphic */}
+                  <div className="md:col-span-6 bg-[#f8fafc] border border-[#e2e8f0] rounded-2xl p-3 sm:p-3.5 flex flex-col justify-between">
+                    {selectedCaseStudy.id === "cs-1" && (
+                      /* Case 1: B2B Cost-Per-Lead Curve */
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-gray-900">
+                            CPL Drop ($58 → $34)
+                          </span>
+                          <span className="text-[10px] font-mono font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                            -42% CPL
+                          </span>
+                        </div>
+
+                        <div className="h-24 w-full relative flex items-end">
+                          <svg className="w-full h-full overflow-visible" viewBox="0 0 300 80">
+                            <defs>
+                              <linearGradient id="cplGradMini" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
+                                <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                              </linearGradient>
+                            </defs>
+                            <motion.polygon
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              points="5,15 80,32 160,48 240,60 295,70 295,80 5,80"
+                              fill="url(#cplGradMini)"
+                            />
+                            <motion.path
+                              d="M 5,15 Q 120,50 295,70"
+                              fill="none"
+                              stroke="#059669"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                              initial={{ pathLength: 0 }}
+                              animate={{ pathLength: 1 }}
+                              transition={{ duration: 1 }}
+                            />
+                            <circle cx="5" cy="15" r="4" fill="#ef4444" />
+                            <circle cx="295" cy="70" r="5" fill="#059669" />
+                          </svg>
+                          <span className="absolute top-0 left-1 text-[9px] font-mono font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded border border-red-200">
+                            Start: $58
+                          </span>
+                          <span className="absolute bottom-1 right-1 text-[10px] font-mono font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300">
+                            Month 6: $34
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-1.5 text-center">
+                          <div className="p-1 rounded-lg bg-white border border-gray-200">
+                            <span className="text-[8px] text-gray-500 block uppercase font-mono">B2B Reach</span>
+                            <span className="text-[10px] font-bold text-gray-900">120K Senior</span>
+                          </div>
+                          <div className="p-1 rounded-lg bg-white border border-gray-200">
+                            <span className="text-[8px] text-gray-500 block uppercase font-mono">Conversion</span>
+                            <span className="text-[10px] font-bold text-gray-900">24.6% Opt-In</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedCaseStudy.id === "cs-2" && (
+                      /* Case 2: E-Commerce ROAS Curve */
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-gray-900">
+                            ROAS Scale (1.2x → 3.2x)
+                          </span>
+                          <span className="text-[10px] font-mono font-extrabold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                            3.2x Scale
+                          </span>
+                        </div>
+
+                        <div className="h-24 w-full relative flex items-end">
+                          <svg className="w-full h-full overflow-visible" viewBox="0 0 300 80">
+                            <defs>
+                              <linearGradient id="roasGradMini" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#2563eb" stopOpacity="0.3" />
+                                <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
+                              </linearGradient>
+                            </defs>
+                            <motion.polygon
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              points="5,70 80,55 160,35 240,20 295,8 295,80 5,80"
+                              fill="url(#roasGradMini)"
+                            />
+                            <motion.path
+                              d="M 5,70 Q 140,40 295,8"
+                              fill="none"
+                              stroke="#2563eb"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                              initial={{ pathLength: 0 }}
+                              animate={{ pathLength: 1 }}
+                              transition={{ duration: 1 }}
+                            />
+                            <circle cx="5" cy="70" r="4" fill="#94a3b8" />
+                            <circle cx="295" cy="8" r="5" fill="#2563eb" />
+                          </svg>
+                          <span className="absolute bottom-1 left-1 text-[9px] font-mono font-bold text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-300">
+                            Base: 1.2x
+                          </span>
+                          <span className="absolute top-0 right-1 text-[10px] font-mono font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded border border-blue-300">
+                            Peak: 3.2x
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-1.5 text-center">
+                          <div className="p-1 rounded-lg bg-white border border-gray-200">
+                            <span className="text-[8px] text-gray-500 block uppercase font-mono">Organic Reach</span>
+                            <span className="text-[10px] font-bold text-gray-900">+300% (3x)</span>
+                          </div>
+                          <div className="p-1 rounded-lg bg-white border border-gray-200">
+                            <span className="text-[8px] text-gray-500 block uppercase font-mono">Retargeting</span>
+                            <span className="text-[10px] font-bold text-gray-900">4.1x ROAS</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedCaseStudy.id === "cs-3" && (
+                      /* Case 3: Enterprise 100% Capacity Meter */
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-gray-900">
+                            Admissions Capacity Fill
+                          </span>
+                          <span className="text-[10px] font-mono font-extrabold text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
+                            100% Booked
+                          </span>
+                        </div>
+
+                        <div className="h-24 w-full flex items-center justify-center gap-3">
+                          <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
+                            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                              <circle cx="50" cy="50" r="38" stroke="#e2e8f0" strokeWidth="10" fill="none" />
+                              <motion.circle
+                                cx="50"
+                                cy="50"
+                                r="38"
+                                stroke="#8b5cf6"
+                                strokeWidth="10"
+                                strokeLinecap="round"
+                                fill="none"
+                                strokeDasharray="238"
+                                initial={{ strokeDashoffset: 238 }}
+                                animate={{ strokeDashoffset: 0 }}
+                                transition={{ duration: 1 }}
+                              />
+                            </svg>
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                              <span className="text-sm font-extrabold font-mono text-purple-700 leading-none">
+                                100%
+                              </span>
+                              <span className="text-[7px] font-bold text-gray-500 uppercase">
+                                Full
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="space-y-0.5 text-left">
+                            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 inline-block">
+                              45 / 45 Seats Filled
+                            </span>
+                            <p className="text-[10px] text-gray-600 leading-tight">
+                              Zero wasted ad budget via negative-keyword pruning.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-1.5 text-center">
+                          <div className="p-1 rounded-lg bg-white border border-gray-200">
+                            <span className="text-[8px] text-gray-500 block uppercase font-mono">Chat SLA</span>
+                            <span className="text-[10px] font-bold text-gray-900">&lt; 5 Min</span>
+                          </div>
+                          <div className="p-1 rounded-lg bg-white border border-gray-200">
+                            <span className="text-[8px] text-gray-500 block uppercase font-mono">Consultations</span>
+                            <span className="text-[10px] font-bold text-gray-900">3.8x Lift</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Strategic Blueprint Hook */}
+                    <div className="pt-1.5 mt-1.5 border-t border-gray-200">
+                      <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider block mb-0.5">
+                        Strategic Move:
+                      </span>
+                      <p className="text-[11px] text-gray-800 font-semibold leading-tight line-clamp-2">
+                        {selectedCaseStudy.strategy}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right Side (6 cols): Dark Slate Impact & Platform Stack Card */}
+                  <div className="md:col-span-6 rounded-2xl bg-[#0f172a] text-white p-3.5 sm:p-4 flex flex-col justify-between shadow-lg border border-gray-800">
+                    <div>
+                      <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-[9px] font-bold uppercase tracking-wider mb-1.5">
+                        <TrendingUp className="w-2.5 h-2.5" />
+                        <span>Measured Outcome</span>
+                      </div>
+
+                      <div className="text-3xl sm:text-[2.2rem] font-extrabold font-mono text-emerald-400 tracking-tight leading-none mb-0.5">
+                        {selectedCaseStudy.metricHighlight}
+                      </div>
+                      <p className="text-[11px] text-gray-300 font-semibold mb-2">
+                        {selectedCaseStudy.metricLabel || "Key Business Outcome"}
+                      </p>
+
+                      <div className="border-t border-white/10 pt-2">
+                        <p className="text-[11px] sm:text-xs text-gray-200 leading-snug line-clamp-2">
+                          {selectedCaseStudy.result}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-2.5 border-t border-white/10 space-y-2">
+                      <div className="flex flex-wrap gap-1">
+                        {selectedCaseStudy.tools.map((tool, idx) => (
+                          <span
+                            key={idx}
+                            className="px-1.5 py-0.5 rounded bg-white/10 text-[9px] font-medium text-white"
+                          >
+                            {tool}
+                          </span>
+                        ))}
+                      </div>
+
+                      <a
+                        href="#contact"
+                        className="inline-flex items-center justify-between w-full px-3 py-1.5 rounded-xl bg-white hover:bg-gray-100 text-gray-950 text-[11px] font-bold transition-all shadow-sm group"
+                      >
+                        <span>Discuss Similar Campaign</span>
+                        <ArrowRight className="w-3 h-3 text-gray-900 group-hover:translate-x-0.5 transition-transform" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
-
-        {/* Interactive Case Studies Tabs */}
-        <div className="flex flex-wrap items-center gap-2 mb-6">
-          {caseStudies.map((cs) => {
-            const isActive = cs.id === activeTab;
-            return (
-              <button
-                key={cs.id}
-                onClick={() => setActiveTab(cs.id)}
-                className={`relative px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-200 border ${
-                  isActive
-                    ? "bg-[#1e3a8a] text-white border-[#1e3a8a] shadow-sm"
-                    : "bg-[#f8fafc] text-gray-700 border-[#e2e8f0] hover:bg-gray-100"
-                }`}
-              >
-                <span>{cs.title.split("&")[0].trim()}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Selected Case Study Detail Display */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedCaseStudy.id}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.3 }}
-            className="editorial-card p-6 sm:p-10 rounded-3xl bg-white border border-[#e2e8f0] space-y-8"
-          >
-            {/* Header info */}
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-5">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2.5">
-                  <span className="text-xs font-bold text-[#1e3a8a] uppercase tracking-wider">
-                    {selectedCaseStudy.clientType}
-                  </span>
-                  {selectedCaseStudy.ndaProtected && (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">
-                      <Lock className="w-3 h-3 text-gray-400" />
-                      <span>Protected Client Data</span>
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-gray-950">
-                  {selectedCaseStudy.title}
-                </h3>
-              </div>
-
-              <div className="text-xs font-semibold text-gray-600 bg-gray-50 px-3.5 py-1.5 rounded-xl border border-gray-200">
-                Industry: <span className="text-gray-950 font-bold">{selectedCaseStudy.industry}</span>
-              </div>
-            </div>
-
-            {/* Strategic Columns */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-5 rounded-2xl bg-[#f8fafc] border border-[#e2e8f0] space-y-2">
-                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block">
-                  01. The Challenge &amp; Objective
-                </span>
-                <p className="text-sm text-gray-800 leading-relaxed font-medium">
-                  {selectedCaseStudy.objective}
-                </p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#f8fafc] border border-[#e2e8f0] space-y-2">
-                <span className="text-xs font-bold text-[#1e3a8a] uppercase tracking-wider block">
-                  02. Strategic Blueprint
-                </span>
-                <p className="text-sm text-gray-800 leading-relaxed font-medium">
-                  {selectedCaseStudy.strategy}
-                </p>
-              </div>
-            </div>
-
-            {/* Execution Steps */}
-            <div>
-              <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">
-                03. Hands-on Execution
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {selectedCaseStudy.execution.map((step, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3.5 rounded-xl bg-white border border-[#e2e8f0] flex items-start gap-2.5 text-xs text-gray-700 shadow-2xs"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-[#1e3a8a] shrink-0 mt-0.5" />
-                    <span>{step}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Result Card & Tool Badges */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-900 to-indigo-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-md">
-              <div className="space-y-1 max-w-xl">
-                <div className="flex items-center gap-2 text-xs font-bold text-blue-300 uppercase tracking-wider">
-                  <TrendingUp className="w-4 h-4 text-emerald-400" />
-                  <span>Measured Business Impact</span>
-                </div>
-                <p className="text-base font-medium text-white/95 leading-snug">
-                  {selectedCaseStudy.result}
-                </p>
-              </div>
-
-              {/* Tools Pill List */}
-              <div className="flex flex-wrap items-center gap-2 shrink-0 sm:max-w-xs justify-start sm:justify-end">
-                {selectedCaseStudy.tools.map((tool, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2.5 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium text-white"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
       </div>
     </section>
   );

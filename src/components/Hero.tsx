@@ -97,9 +97,9 @@ export default function Hero() {
         </div>
 
         {/* Hero Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center mb-6 lg:mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-6 lg:mb-8">
           {/* Left Column: Adaptive Content based on RoleMode */}
-          <div className="lg:col-span-7 space-y-3.5 sm:space-y-4">
+          <div className="space-y-3.5 sm:space-y-4">
             <AnimatePresence mode="wait">
               {roleMode === "instructor" ? (
                 <motion.div
@@ -214,17 +214,17 @@ export default function Hero() {
           </div>
 
           {/* Right Column: Hero Portrait Card - Symmetrical, Balanced Editorial Frame */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[340px] sm:max-w-[370px] lg:max-w-[390px]">
-              {/* Single cohesive card container - perfectly aligned with left column */}
-              <div className="relative aspect-[4/4.3] w-full rounded-3xl bg-slate-900 border border-gray-200/80 shadow-2xl overflow-hidden group">
+          <div className="flex justify-center lg:justify-end w-full">
+            <div className="relative w-full max-w-[480px] sm:max-w-[520px] lg:max-w-none">
+              {/* Single cohesive card container - perfectly aligned and symmetrical with left column */}
+              <div className="relative aspect-[4/3.2] sm:aspect-[5/4] w-full rounded-3xl bg-slate-900 border border-gray-200/80 shadow-2xl overflow-hidden group">
                 <Image
                   src="/images/naime-hero.jpg"
                   alt="Naime - Digital Marketing Strategist & Instructor"
                   fill
                   priority
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  style={{ objectPosition: "20% 18%" }}
+                  style={{ objectPosition: "28% 18%" }}
                 />
 
                 {/* Subtle dark gradient overlay to ensure text contrast */}
@@ -251,11 +251,13 @@ export default function Hero() {
                           {personal.name}
                         </span>
                         <span className="text-[10px] font-mono font-bold text-blue-200 bg-blue-900/60 px-2 py-0.5 rounded border border-blue-400/30">
-                          Instructor
+                          {roleMode === "instructor" ? "Instructor" : "Growth Marketer"}
                         </span>
                       </div>
                       <p className="text-[11px] text-gray-300 leading-tight">
-                        Digital Marketing Strategist &amp; Trainer
+                        {roleMode === "instructor"
+                          ? "Digital Marketing Strategist & Trainer"
+                          : "Performance & CRO Specialist"}
                       </p>
                     </div>
 

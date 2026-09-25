@@ -1,334 +1,363 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import Image from "next/image";
+import { motion } from "motion/react";
 import {
   Sparkles,
-  BookOpen,
   TrendingUp,
-  Lightbulb,
-  Layers,
-  ScreenShare,
   Users2,
-  CheckCircle2,
-  ArrowRight,
+  Award,
   GraduationCap,
-  Calculator,
-  Target,
+  Play,
+  Video,
+  X,
+  Link as LinkIcon,
+  Check,
 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import AnimatedCounter from "@/components/AnimatedCounter";
 
+function getEmbedUrl(url: string): string | null {
+  if (!url) return null;
+  const ytWatch = url.match(
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/
+  );
+  if (ytWatch && ytWatch[1]) {
+    return `https://www.youtube.com/embed/${ytWatch[1]}?autoplay=1&rel=0`;
+  }
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?([0-9]+)/);
+  if (vimeo && vimeo[1]) {
+    return `https://player.vimeo.com/video/${vimeo[1]}?autoplay=1`;
+  }
+  return null;
+}
+
 export default function DualEdgeBento() {
-  const { teachingPillars, curriculumTopics, classroomToCampaign, credibilityMetrics } = portfolioData;
-  const [selectedPillar, setSelectedPillar] = useState(0);
-  const [activeCurriculumCategory, setActiveCurriculumCategory] = useState("All");
+  const { credibilityMetrics, videoShowcase } = portfolioData;
 
-  const categories = ["All", "Paid Media", "Growth", "Search", "Retention", "Client Ops"];
+  // Video Player States
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [videoUrl, setVideoUrl] = useState(
+    videoShowcase?.videoUrl || "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  );
+  const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
+  const [inputUrl, setInputUrl] = useState(videoUrl);
 
-  const filteredTopics =
-    activeCurriculumCategory === "All"
-      ? curriculumTopics
-      : curriculumTopics.filter((t) => t.category === activeCurriculumCategory);
+  const embedUrl = getEmbedUrl(videoUrl);
+  const isDirectVideo =
+    videoUrl &&
+    (videoUrl.endsWith(".mp4") ||
+      videoUrl.endsWith(".webm") ||
+      videoUrl.startsWith("/videos/") ||
+      videoUrl.startsWith("blob:"));
 
-  const pillarIcons = [Lightbulb, Layers, ScreenShare, Users2];
+  const handlePlayClick = () => {
+    if (videoUrl) {
+      setIsVideoPlaying(true);
+    } else {
+      setIsUrlModalOpen(true);
+    }
+  };
+
+  const handleSaveVideoUrl = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (inputUrl.trim()) {
+      setVideoUrl(inputUrl.trim());
+      setIsVideoPlaying(true);
+      setIsUrlModalOpen(false);
+    }
+  };
+
+  const cardIcons = [TrendingUp, Users2, Award, GraduationCap];
+  const accentStyles = [
+    {
+      badge: "text-emerald-700 bg-emerald-50 border-emerald-200/80",
+      border: "hover:border-emerald-500/50 hover:shadow-emerald-500/5",
+    },
+    {
+      badge: "text-blue-700 bg-blue-50 border-blue-200/80",
+      border: "hover:border-blue-500/50 hover:shadow-blue-500/5",
+    },
+    {
+      badge: "text-amber-700 bg-amber-50 border-amber-200/80",
+      border: "hover:border-amber-500/50 hover:shadow-amber-500/5",
+    },
+    {
+      badge: "text-indigo-700 bg-indigo-50 border-indigo-200/80",
+      border: "hover:border-indigo-500/50 hover:shadow-indigo-500/5",
+    },
+  ];
 
   return (
-    <section id="bento" className="py-20 md:py-28 border-b border-[#e2e8f0] bg-[#fbfaf7]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[#1e3a8a] text-xs font-bold tracking-wider uppercase mb-3">
+    <section
+      id="bento"
+      className="py-10 sm:py-12 lg:py-14 border-b border-[#e2e8f0] bg-[#fbfaf7] flex flex-col justify-center"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
+        {/* Centered Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[#1e3a8a] text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-2.5">
             <Sparkles className="w-3.5 h-3.5 text-blue-600" />
             <span>The Practitioner-Instructor Edge</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-950 leading-[1.18] mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-bold tracking-tight text-gray-950 leading-[1.2]">
             Mathematics Logic meets{" "}
             <span className="text-[#1e3a8a] font-serif italic">
               Live Agency Marketing.
             </span>
           </h2>
-
-          <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-            Most digital marketing instructors only know theory from tutorials, while most active marketers lack pedagogical training. Here is why bridging both worlds makes training stick.
-          </p>
         </div>
 
-        {/* Credibility & Proof Bar - Moved from Hero for Dedicated Focus */}
-        <div className="mb-14">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            {credibilityMetrics.map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: idx * 0.08 }}
-                className="editorial-card p-4 sm:p-5 rounded-2xl flex flex-col justify-between hover:border-[#1e3a8a]/40 bg-white shadow-xs"
-              >
-                <div>
-                  <span className="text-[10px] font-bold text-[#1e3a8a] uppercase tracking-wider">
-                    {item.category}
-                  </span>
-                  <div className="text-2xl sm:text-3xl font-extrabold text-gray-950 mt-1 mb-0.5 tracking-tight">
-                    <AnimatedCounter value={item.value} />
+        {/* 2-Column Symmetrical Feature Grid (Cards on Left, Video on Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
+          {/* Left Column (6 cols): 4 Cards in 2x2 Grid */}
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+            {credibilityMetrics.map((item, idx) => {
+              const CardIcon = cardIcons[idx] || Award;
+              const style = accentStyles[idx] || accentStyles[0];
+
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: idx * 0.06 }}
+                  className={`editorial-card p-4 rounded-2xl flex flex-col justify-between bg-white border border-[#e2e8f0] shadow-xs ${style.border} hover:shadow-md transition-all group`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <div
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center border ${style.badge}`}
+                      >
+                        <CardIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      </div>
+                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-mono">
+                        {item.category}
+                      </span>
+                    </div>
+
+                    <div className="text-2xl sm:text-[1.75rem] font-extrabold text-gray-950 tracking-tight font-mono mb-0.5 leading-tight">
+                      <AnimatedCounter value={item.value} />
+                    </div>
+
+                    <div className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#1e3a8a] transition-colors leading-tight mb-1">
+                      {item.label}
+                    </div>
+
+                    <p className="text-[11px] text-gray-600 leading-snug line-clamp-2">
+                      {item.description}
+                    </p>
                   </div>
-                  <div className="text-xs font-bold text-gray-800 mb-1">
-                    {item.label}
+
+                  {item.tag && (
+                    <div className="pt-2 mt-2.5 border-t border-gray-100 flex items-center justify-between text-[10px]">
+                      <span className="font-semibold text-gray-600 bg-gray-50 px-2 py-0.5 rounded border border-gray-200/80">
+                        {item.tag}
+                      </span>
+                      <span className="font-bold text-[#1e3a8a] opacity-0 group-hover:opacity-100 transition-opacity">
+                        Verified •
+                      </span>
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Right Column (6 cols): Featured Video Showcase Player */}
+          <div className="lg:col-span-6 flex flex-col">
+            <div className="relative rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-xl h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] flex flex-col justify-center">
+              {isVideoPlaying && embedUrl ? (
+                <iframe
+                  src={embedUrl}
+                  title={videoShowcase?.title || "Methodology Video"}
+                  className="w-full h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              ) : isVideoPlaying && isDirectVideo ? (
+                <video
+                  src={videoUrl}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-cover min-h-[300px] sm:min-h-[340px] lg:min-h-[360px]"
+                />
+              ) : (
+                /* Idle Poster State */
+                <div className="relative w-full h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] group flex flex-col justify-between">
+                  <Image
+                    src={videoShowcase?.posterImage || "/images/naime-hero.jpg"}
+                    alt={videoShowcase?.title || "Video Thumbnail"}
+                    fill
+                    priority
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    style={{ objectPosition: "30% 20%" }}
+                  />
+
+                  {/* Cinematic Vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/60 pointer-events-none" />
+
+                  {/* Top Bar Badges */}
+                  <div className="relative p-3.5 sm:p-4 flex items-center justify-between z-10">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] sm:text-[11px] font-bold text-white uppercase tracking-wider shadow-sm">
+                      <Video className="w-3 h-3 text-blue-400" />
+                      {videoShowcase?.badge || "Featured Masterclass"}
+                    </span>
+
+                    <button
+                      onClick={() => setIsUrlModalOpen(true)}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-[10px] sm:text-[11px] font-medium text-white transition-all shadow-sm"
+                    >
+                      <LinkIcon className="w-3 h-3 text-blue-300" />
+                      <span>{videoUrl ? "Change Video" : "Attach Video"}</span>
+                    </button>
+                  </div>
+
+                  {/* Center Glowing Play Button */}
+                  <div className="relative my-auto flex items-center justify-center z-10 py-4">
+                    <button
+                      onClick={handlePlayClick}
+                      aria-label="Play video"
+                      className="group/btn relative flex items-center justify-center"
+                    >
+                      <div className="absolute -inset-4 bg-blue-500/25 rounded-full blur-xl group-hover/btn:bg-blue-500/40 transition-all animate-pulse" />
+                      <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm" />
+                      <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1e3a8a] text-white flex items-center justify-center shadow-2xl border-2 border-white/30 group-hover/btn:scale-110 group-hover/btn:bg-blue-600 transition-all duration-300">
+                        <Play className="w-6 h-6 sm:w-7 sm:h-7 fill-current ml-0.5 text-white" />
+                      </div>
+                    </button>
+                  </div>
+
+                  {/* Bottom Video Metadata */}
+                  <div className="relative p-3.5 sm:p-4 z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-3 bg-gradient-to-t from-black/85 via-black/50 to-transparent">
+                    <div className="space-y-0.5 max-w-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[9px] sm:text-[10px] font-mono font-bold text-blue-300 bg-blue-900/60 px-2 py-0.5 rounded border border-blue-400/30">
+                          {videoShowcase?.duration || "Walkthrough"}
+                        </span>
+                        <span className="text-[10px] sm:text-[11px] text-gray-300 font-medium">
+                          Naime • Marketing Strategist
+                        </span>
+                      </div>
+                      <h3 className="text-xs sm:text-sm font-bold text-white leading-snug">
+                        {videoShowcase?.title || "How Mathematics Logic Powers Live Marketing Systems"}
+                      </h3>
+                    </div>
+
+                    <div className="shrink-0 flex items-center">
+                      <button
+                        onClick={handlePlayClick}
+                        className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-gray-100 text-gray-900 font-bold text-xs shadow-md transition-all flex items-center gap-1.5"
+                      >
+                        <Play className="w-3 h-3 fill-current" />
+                        <span>Watch</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <p className="text-[11px] text-gray-500 leading-normal border-t border-gray-100 pt-2 mt-2">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Tile 1 (8 cols): The Math Pedagogy Translation */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="lg:col-span-8 editorial-card p-6 sm:p-8 rounded-3xl bg-white flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-bold">
-                  <Calculator className="w-4 h-4 text-emerald-600" />
-                  <span>The Classroom Origin</span>
-                </div>
-                <span className="text-xs font-mono text-gray-500 font-medium">4+ Years Teaching</span>
-              </div>
-
-              <h3 className="text-2xl font-bold text-gray-950 mb-3">
-                How Secondary Mathematics Shaped My Teaching Methodology
-              </h3>
-
-              <p className="text-sm text-gray-700 leading-relaxed mb-6">
-                Teaching competitive mathematics to senior students taught me the fundamental art of <strong>conceptual simplification</strong>. Whether explaining complex algebraic systems or dissecting Meta ad auction bidding algorithms, the core challenge is identical: removing intimidation and giving learners a predictable mental model.
-              </p>
-
-              {/* 3 Translation Pillars */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                <div className="p-4 rounded-2xl bg-[#f8fafc] border border-slate-200/80">
-                  <span className="text-xs font-bold text-[#1e3a8a] block mb-1">Step-by-Step Logic</span>
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    Replacing arbitrary guesswork with structured checklists, formulas, and repeatable processes.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#f8fafc] border border-slate-200/80">
-                  <span className="text-xs font-bold text-emerald-800 block mb-1">Diagnosing Bottlenecks</span>
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    Spotting why a learner is stuck on pixel tracking or CAC calculations with genuine patience.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#f8fafc] border border-slate-200/80">
-                  <span className="text-xs font-bold text-indigo-900 block mb-1">Market Readiness</span>
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    Training students not just to pass exams, but to manage real budgets and communicate with clients.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-600">
-              <span className="italic">&ldquo;Good marketing gets attention. Good teaching makes knowledge useful.&rdquo;</span>
-              <span className="font-semibold text-gray-900">— Naime</span>
-            </div>
-          </motion.div>
-
-          {/* Tile 2 (4 cols): The Real-World Agency Battlefield */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="lg:col-span-4 rounded-3xl bg-[#0f172a] text-white p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-xl border border-gray-800"
-          >
-            <div className="absolute top-0 right-0 w-48 h-48 bg-blue-600/15 blur-3xl rounded-full pointer-events-none" />
-
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/60 border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-wider mb-4">
-                <Target className="w-3.5 h-3.5" />
-                <span>Agency Reality</span>
-              </div>
-
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                100+ International Client Campaigns
-              </h3>
-
-              <p className="text-xs text-gray-300 leading-relaxed mb-6">
-                Courses are built on actual battle-tested accounts—handling foreign client briefs, shifting platform algorithms, and hard ROAS accountability.
-              </p>
-
-              <div className="space-y-3">
-                {classroomToCampaign.realWorld.slice(0, 4).map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-300">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs">
-              <span className="text-gray-400">Agency: Next Clicker &amp; Social Tamai</span>
-              <span className="text-blue-400 font-bold">100% Live Practice</span>
-            </div>
-          </motion.div>
-
-          {/* Tile 3 (4 cols): The 4-Pillar Pedagogical Framework */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-5 editorial-card p-6 sm:p-7 rounded-3xl bg-white flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-bold text-[#1e3a8a] uppercase tracking-wider">
-                  Instructional Framework
-                </span>
-                <span className="text-[11px] font-mono text-gray-400">4 Pillars</span>
-              </div>
-
-              <h3 className="text-xl font-bold text-gray-950 mb-4">
-                How I Structure Every Lesson
-              </h3>
-
-              {/* Pillar Selector Pills */}
-              <div className="grid grid-cols-2 gap-2 mb-4">
-                {teachingPillars.map((pillar, idx) => {
-                  const Icon = pillarIcons[idx] || Lightbulb;
-                  const isSelected = selectedPillar === idx;
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedPillar(idx)}
-                      className={`p-3 rounded-xl border text-left transition-all flex items-center gap-2.5 ${
-                        isSelected
-                          ? "bg-[#1e3a8a] text-white border-[#1e3a8a] shadow-sm"
-                          : "bg-[#f8fafc] text-gray-700 border-slate-200/80 hover:bg-slate-100"
-                      }`}
-                    >
-                      <Icon className={`w-4 h-4 ${isSelected ? "text-blue-200" : "text-[#1e3a8a]"}`} />
-                      <div className="overflow-hidden">
-                        <span className="text-xs font-bold block truncate">{pillar.title}</span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Active Pillar Detail Box */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedPillar}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.2 }}
-                  className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 text-xs space-y-1.5"
-                >
-                  <div className="font-bold text-[#1e3a8a] text-xs uppercase tracking-wide">
-                    {teachingPillars[selectedPillar].tagline}
-                  </div>
-                  <p className="text-gray-700 leading-relaxed">
-                    {teachingPillars[selectedPillar].description}
-                  </p>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-gray-100 text-[11px] text-gray-500 font-medium">
-              Zero slide reading • 100% interactive execution
-            </div>
-          </motion.div>
-
-          {/* Tile 4 (7 cols): What I Can Teach (Interactive Curriculum) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="lg:col-span-7 editorial-card p-6 sm:p-7 rounded-3xl bg-white flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                <div>
-                  <span className="text-xs font-bold text-[#1e3a8a] uppercase tracking-wider">
-                    Syllabus Capabilities
-                  </span>
-                  <h3 className="text-xl font-bold text-gray-950 mt-0.5">
-                    Curriculum &amp; Training Modules
-                  </h3>
-                </div>
-
-                {/* Filter tags */}
-                <div className="flex flex-wrap items-center gap-1.5">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setActiveCurriculumCategory(cat)}
-                      className={`px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all ${
-                        activeCurriculumCategory === cat
-                          ? "bg-[#1e3a8a] text-white shadow-xs"
-                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Module Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[260px] overflow-y-auto pr-1">
-                {filteredTopics.map((topic, idx) => (
-                  <motion.div
-                    key={idx}
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="p-3 rounded-xl bg-[#f8fafc] border border-slate-200/80 hover:border-[#1e3a8a]/40 transition-all flex items-center justify-between"
-                  >
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#1e3a8a] shrink-0" />
-                      <span className="text-xs font-semibold text-gray-800 leading-tight">
-                        {topic.title}
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-medium text-gray-500 bg-white px-2 py-0.5 rounded border border-gray-200 shrink-0 ml-2">
-                      {topic.category}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-              <span className="text-xs text-gray-500 font-medium">
-                Customizable for masterclasses, vocational institutes, or corporate teams.
-              </span>
-              <a
-                href="#contact"
-                className="text-xs font-bold text-[#1e3a8a] hover:underline flex items-center gap-1"
+        {/* Video Link Configuration Modal */}
+        {isUrlModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative border border-gray-200">
+              <button
+                onClick={() => setIsUrlModalOpen(false)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
+                aria-label="Close modal"
               >
-                <span>Request Custom Syllabus</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#1e3a8a] flex items-center justify-center">
+                    <Video className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-bold text-gray-950">
+                      Configure Masterclass Video
+                    </h4>
+                    <p className="text-xs text-gray-500">
+                      Attach a YouTube link, Vimeo link, or local MP4 path
+                    </p>
+                  </div>
+                </div>
+
+                <form onSubmit={handleSaveVideoUrl} className="space-y-3.5 pt-2">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-800 mb-1">
+                      Video Link or Path
+                    </label>
+                    <input
+                      type="text"
+                      value={inputUrl}
+                      onChange={(e) => setInputUrl(e.target.value)}
+                      placeholder="e.g. https://www.youtube.com/watch?v=... or /videos/demo.mp4"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a8a]/20 focus:border-[#1e3a8a]"
+                    />
+                    <p className="text-[11px] text-gray-500 mt-1">
+                      Tip: You can also permanently configure this in{" "}
+                      <code className="text-[#1e3a8a] font-mono bg-blue-50 px-1 py-0.5 rounded">
+                        src/data/portfolio.ts
+                      </code>
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-gray-50 border border-gray-200/80 space-y-1.5">
+                    <span className="text-[11px] font-bold text-gray-700 block">
+                      Quick Sample Test Links:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setInputUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                        }
+                        className="px-2.5 py-1 rounded-lg bg-white border border-gray-200 text-[11px] font-medium text-gray-700 hover:border-[#1e3a8a]"
+                      >
+                        Sample YouTube Video
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setInputUrl("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+                        }
+                        className="px-2.5 py-1 rounded-lg bg-white border border-gray-200 text-[11px] font-medium text-gray-700 hover:border-[#1e3a8a]"
+                      >
+                        Sample MP4 Stream
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 flex items-center justify-end gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsUrlModalOpen(false)}
+                      className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 rounded-xl bg-[#1e3a8a] hover:bg-blue-900 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm"
+                    >
+                      <Check className="w-3.5 h-3.5" />
+                      <span>Save &amp; Play</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
