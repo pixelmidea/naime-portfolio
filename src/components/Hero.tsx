@@ -197,8 +197,46 @@ export default function Hero() {
               </motion.a>
             </motion.div>
 
+            {/* Current Focus 2026 Card in Left Column */}
+            <motion.div className="pt-2" {...entrance(0.8)}>
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-sm space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-extrabold text-emerald-600 tracking-wider uppercase font-mono flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-500 animate-spin-slow" />
+                    CURRENT FOCUS • 2026
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[10px] font-bold text-emerald-700 font-mono">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                    </span>
+                    Active Ops
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700 font-medium">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">🚀</span>
+                    <span className="truncate">Scaling Paid Funnels (100+ Accounts)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">🏆</span>
+                    <span className="truncate">NSDA Level-3 Certified Marketer</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">🎓</span>
+                    <span className="truncate">Mathematics &amp; Pedagogy (5+ Yrs)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">⚡</span>
+                    <span className="truncate">Next Clicker Lead Strategist</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Meta Row: Location + Divider + Social Links */}
-            <motion.div className="pt-4 flex items-center gap-4 text-xs font-medium text-slate-500" {...entrance(0.85)}>
+            <motion.div className="pt-2 flex items-center gap-4 text-xs font-medium text-slate-500" {...entrance(0.85)}>
               <div className="flex items-center gap-1.5">
                 <MapPin className="w-4 h-4 text-emerald-500" />
                 <span>{personal.location}</span>
@@ -293,18 +331,18 @@ export default function Hero() {
               </div>
 
               {/* Main Portrait Frame with Float Animation */}
-              <div className="relative rounded-[2.2rem] bg-slate-900 border-4 border-white shadow-2xl overflow-hidden aspect-[4/4.7] sm:aspect-[4/4.6] group">
+              <div className="relative rounded-[2.2rem] bg-slate-900 border-4 border-white shadow-2xl overflow-hidden aspect-[4/4.5] group">
                 <Image
                   src="/images/naime-hero.jpg"
                   alt={personal.name}
                   fill
                   priority
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  style={{ objectPosition: "28% 14%" }}
+                  style={{ objectPosition: "28% 18%" }}
                 />
 
-                {/* Subtle dark gradient overlay over lower jacket */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-black/25 to-black/10 pointer-events-none" />
+                {/* Subtle vignette for contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
 
                 {/* Top-Right Floating Status Pill with Live Radar Wave */}
                 <div className="absolute top-3.5 right-3.5 z-10">
@@ -315,39 +353,6 @@ export default function Hero() {
                     </span>
                     Available for Work
                   </span>
-                </div>
-
-                {/* Docked Ultra-Sleek CURRENT FOCUS Glass Card INSIDE the Frame */}
-                <div className="absolute bottom-3 sm:bottom-3.5 inset-x-3 sm:inset-x-3.5 z-10 p-3 sm:p-3.5 rounded-2xl bg-slate-950/75 backdrop-blur-xl border border-white/15 shadow-xl text-white space-y-2">
-                  <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
-                    <span className="text-[10px] font-extrabold text-emerald-400 tracking-wider uppercase font-mono flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-emerald-400 animate-spin-slow" />
-                      CURRENT FOCUS • 2026
-                    </span>
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-[9px] font-bold text-emerald-300 font-mono">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      Active
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-x-2.5 gap-y-1.5 text-[10px] sm:text-[11px] text-slate-200 font-medium">
-                    <div className="flex items-center gap-1.5 truncate">
-                      <span className="shrink-0 text-xs">🚀</span>
-                      <span className="truncate">100+ Funnels Scaled</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 truncate">
-                      <span className="shrink-0 text-xs">🏆</span>
-                      <span className="truncate">NSDA L-3 Marketer</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 truncate">
-                      <span className="shrink-0 text-xs">🎓</span>
-                      <span className="truncate">5+ Yrs Math Pedagogy</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 truncate">
-                      <span className="shrink-0 text-xs">⚡</span>
-                      <span className="truncate">Agency Lead Strategist</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </motion.div>
