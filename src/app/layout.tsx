@@ -18,7 +18,7 @@ const newsreader = Newsreader({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fbfaf7",
+  themeColor: "#ffffff",
 };
 
 export const metadata: Metadata = {
@@ -50,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jakarta.variable} ${newsreader.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-[#fbfaf7] text-gray-900 font-sans selection:bg-blue-900 selection:text-white antialiased flex flex-col">
+      <body className="min-h-screen bg-white text-slate-900 font-sans selection:bg-emerald-500 selection:text-white antialiased flex flex-col">
         {children}
       </body>
     </html>

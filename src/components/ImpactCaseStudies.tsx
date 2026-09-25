@@ -28,24 +28,24 @@ export default function ImpactCaseStudies() {
   return (
     <section
       id="work"
-      className="py-6 sm:py-8 lg:py-10 border-b border-[#e2e8f0] bg-[#fbfaf7] flex flex-col justify-center lg:min-h-[calc(100vh-70px)]"
+      className="py-10 sm:py-12 lg:py-14 border-b border-slate-100 bg-white flex flex-col justify-center"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
         {/* Compact Centered Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/80 text-[#1e3a8a] text-[10px] sm:text-[11px] font-bold tracking-wider uppercase mb-1.5">
-            <Sparkles className="w-3 h-3 text-blue-600" />
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[10px] sm:text-[11px] font-bold tracking-wider uppercase mb-2">
+            <Sparkles className="w-3 h-3 text-emerald-600" />
             <span>Proven Track Record • Live Agency Results</span>
           </div>
 
-          <h2 className="text-xl sm:text-2xl lg:text-[2.1rem] font-bold tracking-tight text-gray-950 leading-tight mb-1">
+          <h2 className="text-xl sm:text-2xl lg:text-[2.2rem] font-extrabold tracking-tight text-slate-900 leading-tight mb-2">
             Campaign execution,{" "}
-            <span className="text-[#1e3a8a] font-serif italic">
+            <span className="text-emerald-500">
               not just campaign theory.
             </span>
           </h2>
 
-          <p className="text-xs sm:text-sm text-gray-600 max-w-lg mx-auto leading-normal">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-normal">
             Real campaign architectures, precision audience structures, and measurable conversion growth across 100+ global brands.
           </p>
         </div>
@@ -62,28 +62,28 @@ export default function ImpactCaseStudies() {
                   onClick={() => setActiveTab(cs.id)}
                   className={`relative p-3.5 sm:p-4 rounded-2xl text-left transition-all duration-300 border flex flex-col justify-between group h-full ${
                     isActive
-                      ? "bg-white border-[#1e3a8a] shadow-md ring-2 ring-[#1e3a8a]/15"
-                      : "bg-white/80 border-[#e2e8f0] hover:bg-white hover:border-gray-300 shadow-2xs"
+                      ? "bg-white border-emerald-500 shadow-md ring-2 ring-emerald-500/15"
+                      : "bg-white/80 border-slate-100 hover:bg-white hover:border-slate-200 shadow-2xs"
                   }`}
                 >
                   {/* Active Indicator Bar on Left Edge */}
                   {isActive && (
                     <motion.div
                       layoutId="active-case-bar"
-                      className="absolute left-0 top-2.5 bottom-2.5 w-1.5 bg-[#1e3a8a] rounded-r"
+                      className="absolute left-0 top-2.5 bottom-2.5 w-1.5 bg-emerald-500 rounded-r"
                     />
                   )}
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 font-mono">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">
                         {cs.industry.split("/")[0].trim()}
                       </span>
                       <span
                         className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono flex items-center gap-0.5 ${
                           isActive
                             ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                            : "bg-gray-100 text-gray-700"
+                            : "bg-slate-100 text-slate-700"
                         }`}
                       >
                         <ArrowUpRight className="w-3 h-3" />
@@ -93,20 +93,20 @@ export default function ImpactCaseStudies() {
 
                     <h3
                       className={`text-xs sm:text-sm font-bold leading-snug transition-colors ${
-                        isActive ? "text-[#1e3a8a]" : "text-gray-900 group-hover:text-gray-950"
+                        isActive ? "text-emerald-700" : "text-slate-900 group-hover:text-slate-950"
                       }`}
                     >
                       {cs.title}
                     </h3>
                   </div>
 
-                  <div className="pt-2 mt-1.5 border-t border-gray-100 flex items-center justify-between text-[11px]">
-                    <span className="text-gray-500 text-[10px] font-medium truncate max-w-[140px]">
+                  <div className="pt-2 mt-1.5 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                    <span className="text-slate-500 text-[10px] font-medium truncate max-w-[140px]">
                       {cs.clientType}
                     </span>
                     <span
                       className={`font-bold flex items-center gap-0.5 text-[10px] shrink-0 ${
-                        isActive ? "text-[#1e3a8a]" : "text-gray-400 group-hover:text-gray-600"
+                        isActive ? "text-emerald-600" : "text-slate-400 group-hover:text-slate-600"
                       }`}
                     >
                       <span>{isActive ? "Viewing" : "Inspect"}</span>
@@ -394,10 +394,10 @@ export default function ImpactCaseStudies() {
 
                       <a
                         href="#contact"
-                        className="inline-flex items-center justify-between w-full px-3 py-1.5 rounded-xl bg-white hover:bg-gray-100 text-gray-950 text-[11px] font-bold transition-all shadow-sm group"
+                        className="inline-flex items-center justify-between w-full px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white text-[11px] font-bold transition-all shadow-md shadow-emerald-950/20 group"
                       >
                         <span>Discuss Similar Campaign</span>
-                        <ArrowRight className="w-3 h-3 text-gray-900 group-hover:translate-x-0.5 transition-transform" />
+                        <ArrowRight className="w-3 h-3 text-white group-hover:translate-x-0.5 transition-transform" />
                       </a>
                     </div>
                   </div>

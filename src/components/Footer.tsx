@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, Mail, Phone, MapPin, GraduationCap } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 
 export default function Footer() {
@@ -11,42 +11,44 @@ export default function Footer() {
   };
 
   const navLinks = [
-    { name: "Pedagogy & Edge", href: "#bento" },
+    { name: "Home", href: "#" },
+    { name: "About & Edge", href: "#bento" },
     { name: "Case Studies", href: "#work" },
-    { name: "Capabilities", href: "#expertise" },
-    { name: "Experience & Trust", href: "#experience" },
+    { name: "Skills", href: "#expertise" },
+    { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
   ];
 
   return (
-    <footer className="border-t border-[#e2e8f0] bg-[#f8fafc] py-12 text-gray-800">
+    <footer className="border-t border-slate-100 bg-white py-12 text-slate-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-[#e2e8f0]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-100">
           {/* Brand & Positioning */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-[#1e3a8a] text-white flex items-center justify-center font-bold text-xs">
+              <div className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
                 N
               </div>
-              <span className="font-bold text-gray-950 text-base">
+              <span className="font-extrabold text-slate-950 text-base tracking-tight">
                 {personal.name}
+                <span className="text-emerald-500">.</span>
               </span>
             </div>
-            <p className="text-xs text-gray-600 font-medium">
+            <p className="text-xs text-slate-600 font-medium">
               Digital Marketing Strategist &amp; Instructor
             </p>
-            <p className="text-[11px] text-gray-500">
+            <p className="text-[11px] text-slate-400">
               Sirajganj, Bangladesh • Open for Remote &amp; Onsite Engagements
             </p>
           </div>
 
           {/* Quick Nav Links */}
-          <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-gray-600">
+          <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="hover:text-[#1e3a8a] transition-colors"
+                className="hover:text-emerald-600 transition-colors"
               >
                 {link.name}
               </a>
@@ -56,7 +58,7 @@ export default function Footer() {
           {/* Back to top */}
           <button
             onClick={scrollToTop}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-[#e2e8f0] text-xs font-bold text-gray-700 hover:text-[#1e3a8a] hover:border-gray-400 transition-all shadow-2xs"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700 hover:text-emerald-600 hover:border-emerald-300 transition-all shadow-2xs"
             aria-label="Back to top"
             id="footer-back-to-top"
           >
@@ -66,11 +68,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom copyright & legal */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-3">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
           <p>© 2026 {personal.name}. All rights reserved.</p>
-          <p className="text-[11px] font-medium text-gray-600">
-            NSDA Level-3 Certified • 100+ Global Accounts • 5+ Years Teaching Experience
-          </p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50/80 border border-emerald-200/60 text-emerald-800 text-[11px] font-medium font-mono">
+            <span>NSDA Level-3 Certified</span>
+            <span>•</span>
+            <span>100+ Global Accounts</span>
+            <span>•</span>
+            <span>5+ Years Teaching Experience</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -92,19 +92,19 @@ export default function DualEdgeBento() {
   return (
     <section
       id="bento"
-      className="py-10 sm:py-12 lg:py-14 border-b border-[#e2e8f0] bg-[#fbfaf7] flex flex-col justify-center"
+      className="py-12 sm:py-16 border-b border-slate-100 bg-slate-50/50 flex flex-col justify-center"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 w-full">
         {/* Centered Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[#1e3a8a] text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-2.5">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-[11px] sm:text-xs font-bold tracking-wider uppercase mb-2.5">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
             <span>The Practitioner-Instructor Edge</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-bold tracking-tight text-gray-950 leading-[1.2]">
+          <h2 className="text-2xl sm:text-3xl lg:text-[2.35rem] font-extrabold tracking-tight text-slate-900 leading-[1.2]">
             Mathematics Logic meets{" "}
-            <span className="text-[#1e3a8a] font-serif italic">
+            <span className="text-emerald-500">
               Live Agency Marketing.
             </span>
           </h2>
@@ -125,7 +125,7 @@ export default function DualEdgeBento() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.35, delay: idx * 0.06 }}
-                  className={`editorial-card p-4 rounded-2xl flex flex-col justify-between bg-white border border-[#e2e8f0] shadow-xs ${style.border} hover:shadow-md transition-all group`}
+                  className={`editorial-card p-4 rounded-2xl flex flex-col justify-between bg-white border border-slate-100 shadow-sm ${style.border} hover:shadow-lg hover:shadow-emerald-500/5 transition-all group`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-2">
@@ -134,30 +134,30 @@ export default function DualEdgeBento() {
                       >
                         <CardIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </div>
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-mono">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">
                         {item.category}
                       </span>
                     </div>
 
-                    <div className="text-2xl sm:text-[1.75rem] font-extrabold text-gray-950 tracking-tight font-mono mb-0.5 leading-tight">
+                    <div className="text-2xl sm:text-[1.75rem] font-extrabold text-slate-900 tracking-tight font-mono mb-0.5 leading-tight">
                       <AnimatedCounter value={item.value} />
                     </div>
 
-                    <div className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#1e3a8a] transition-colors leading-tight mb-1">
+                    <div className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors leading-tight mb-1">
                       {item.label}
                     </div>
 
-                    <p className="text-[11px] text-gray-600 leading-snug line-clamp-2">
+                    <p className="text-[11px] text-slate-600 leading-snug line-clamp-2">
                       {item.description}
                     </p>
                   </div>
 
                   {item.tag && (
-                    <div className="pt-2 mt-2.5 border-t border-gray-100 flex items-center justify-between text-[10px]">
-                      <span className="font-semibold text-gray-600 bg-gray-50 px-2 py-0.5 rounded border border-gray-200/80">
+                    <div className="pt-2 mt-2.5 border-t border-slate-100 flex items-center justify-between text-[10px]">
+                      <span className="font-semibold text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200/80">
                         {item.tag}
                       </span>
-                      <span className="font-bold text-[#1e3a8a] opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="font-bold text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">
                         Verified •
                       </span>
                     </div>
@@ -224,9 +224,9 @@ export default function DualEdgeBento() {
                       aria-label="Play video"
                       className="group/btn relative flex items-center justify-center"
                     >
-                      <div className="absolute -inset-4 bg-blue-500/25 rounded-full blur-xl group-hover/btn:bg-blue-500/40 transition-all animate-pulse" />
+                      <div className="absolute -inset-4 bg-emerald-500/25 rounded-full blur-xl group-hover/btn:bg-emerald-500/40 transition-all animate-pulse" />
                       <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm" />
-                      <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1e3a8a] text-white flex items-center justify-center shadow-2xl border-2 border-white/30 group-hover/btn:scale-110 group-hover/btn:bg-blue-600 transition-all duration-300">
+                      <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-2xl border-2 border-white/30 group-hover/btn:scale-110 group-hover/btn:bg-emerald-400 transition-all duration-300">
                         <Play className="w-6 h-6 sm:w-7 sm:h-7 fill-current ml-0.5 text-white" />
                       </div>
                     </button>
@@ -347,7 +347,7 @@ export default function DualEdgeBento() {
                     </button>
                     <button
                       type="submit"
-                      className="px-4 py-2 rounded-xl bg-[#1e3a8a] hover:bg-blue-900 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm"
+                      className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-500/20"
                     >
                       <Check className="w-3.5 h-3.5" />
                       <span>Save &amp; Play</span>

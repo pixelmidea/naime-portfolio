@@ -7,21 +7,22 @@ import {
   ArrowRight,
   GraduationCap,
   TrendingUp,
-  CheckCircle2,
   Award,
-  Users,
-  Briefcase,
   MapPin,
   Sparkles,
+  Mail,
+  Phone,
+  MessageCircle,
   ChevronRight,
+  Globe,
+  Briefcase,
 } from "lucide-react";
+import { LinkedinIcon } from "@/components/SocialIcons";
 import { portfolioData } from "@/data/portfolio";
-
-type RoleMode = "instructor" | "marketer";
 
 export default function Hero() {
   const { personal } = portfolioData;
-  const [roleMode, setRoleMode] = useState<RoleMode>("instructor");
+  const [roleMode, setRoleMode] = useState<"instructor" | "marketer">("marketer");
 
   const platformSkills = [
     "Meta Ads Manager",
@@ -37,255 +38,258 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative pt-20 pb-8 sm:pt-24 sm:pb-10 lg:pt-24 lg:pb-12 overflow-hidden border-b border-[#e2e8f0]">
-      {/* Ambient background architectural grid */}
-      <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none -z-10"
-        style={{
-          backgroundImage: `radial-gradient(#1e3a8a 1px, transparent 1px)`,
-          backgroundSize: "28px 28px",
-        }}
-      />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-blue-500/10 via-indigo-500/5 to-transparent blur-3xl rounded-full pointer-events-none -z-10" />
+    <section className="relative pt-24 pb-10 sm:pt-28 sm:pb-12 lg:pt-32 lg:pb-14 overflow-hidden border-b border-slate-100">
+      {/* Floating Sparkle ✦ Icons in Background */}
+      <div className="absolute top-20 left-[8%] text-emerald-400/70 text-2xl font-serif pointer-events-none select-none animate-float hidden md:block">
+        ✦
+      </div>
+      <div className="absolute bottom-28 left-[4%] text-teal-400/50 text-xl font-serif pointer-events-none select-none animate-float-slow hidden md:block">
+        ✦
+      </div>
+      <div className="absolute top-36 right-[6%] text-purple-400/60 text-2xl font-serif pointer-events-none select-none animate-float hidden lg:block">
+        ✦
+      </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Dynamic Role Switcher Toggle */}
-        <div className="flex justify-center mb-4 sm:mb-6">
-          <div className="inline-flex p-1 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs backdrop-blur-md">
-            <button
-              onClick={() => setRoleMode("instructor")}
-              className={`relative px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-2 ${
-                roleMode === "instructor"
-                  ? "text-white"
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              {roleMode === "instructor" && (
-                <motion.div
-                  layoutId="role-pill"
-                  className="absolute inset-0 bg-[#1e3a8a] rounded-xl shadow-md"
-                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                />
-              )}
-              <span className="relative z-10 flex items-center gap-2">
-                <GraduationCap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span>Hire as an Instructor</span>
-              </span>
-            </button>
-
+        {/* Sleek Dual Role Selector */}
+        <div className="flex justify-start mb-6">
+          <div className="inline-flex p-1 rounded-full bg-slate-100/80 border border-slate-200/80 backdrop-blur-md shadow-2xs">
             <button
               onClick={() => setRoleMode("marketer")}
-              className={`relative px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-2 ${
+              className={`relative px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 ${
                 roleMode === "marketer"
                   ? "text-white"
-                  : "text-gray-600 hover:text-gray-900"
+                  : "text-slate-600 hover:text-slate-900"
               }`}
             >
               {roleMode === "marketer" && (
                 <motion.div
-                  layoutId="role-pill"
-                  className="absolute inset-0 bg-[#0f172a] rounded-xl shadow-md"
-                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  layoutId="hero-role-pill"
+                  className="absolute inset-0 bg-emerald-500 rounded-full shadow-sm shadow-emerald-500/25"
+                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
                 />
               )}
-              <span className="relative z-10 flex items-center gap-2">
-                <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span>Hire for Growth Marketing</span>
+              <span className="relative z-10 flex items-center gap-1.5">
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>Growth Marketer</span>
+              </span>
+            </button>
+
+            <button
+              onClick={() => setRoleMode("instructor")}
+              className={`relative px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 ${
+                roleMode === "instructor"
+                  ? "text-white"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              {roleMode === "instructor" && (
+                <motion.div
+                  layoutId="hero-role-pill"
+                  className="absolute inset-0 bg-emerald-500 rounded-full shadow-sm shadow-emerald-500/25"
+                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                />
+              )}
+              <span className="relative z-10 flex items-center gap-1.5">
+                <GraduationCap className="w-3.5 h-3.5" />
+                <span>Marketing Instructor</span>
               </span>
             </button>
           </div>
         </div>
 
-        {/* Hero Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-6 lg:mb-8">
-          {/* Left Column: Adaptive Content based on RoleMode */}
-          <div className="space-y-3.5 sm:space-y-4">
+        {/* Hero 2-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center mb-8 sm:mb-12">
+          {/* Left Column: Greeting, Role, Narrative & Pill CTAs */}
+          <div className="lg:col-span-6 xl:col-span-7 space-y-5">
+            {/* Greeting */}
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+                <span>Hi, I&apos;m</span>
+                <span className="text-emerald-500 underline decoration-emerald-200 decoration-4 underline-offset-8">
+                  {personal.name.split(" ")[1] || personal.name}
+                </span>
+              </div>
+
+              {/* Subheading / Role Title */}
+              <AnimatePresence mode="wait">
+                <motion.h1
+                  key={roleMode}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-2xl sm:text-3xl lg:text-[2.4rem] font-bold text-slate-800 tracking-tight leading-snug pt-1"
+                >
+                  {roleMode === "marketer"
+                    ? "Digital Marketing & Growth Strategist"
+                    : "Digital Marketing Instructor & Pedagogue"}
+                </motion.h1>
+              </AnimatePresence>
+            </div>
+
+            {/* Narrative Paragraph */}
             <AnimatePresence mode="wait">
-              {roleMode === "instructor" ? (
-                <motion.div
-                  key="instructor-view"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
-                  className="space-y-3.5 sm:space-y-4"
-                >
-                  <div className="inline-flex items-center gap-2 px-2.5 py-0.5 sm:py-1 rounded-full bg-blue-50 border border-blue-200/80 text-[#1e3a8a] text-[11px] sm:text-xs font-bold tracking-wide">
-                    <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-600" />
-                    <span>Pedagogical Clarity • Battle-Tested Experience</span>
-                  </div>
-
-                  <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-bold tracking-tight text-gray-950 leading-[1.22] sm:leading-[1.24]">
-                    I turn real-world marketing experience into{" "}
-                    <span className="text-[#1e3a8a] underline decoration-[#1e3a8a]/25 decoration-2 sm:decoration-3 underline-offset-[6px] font-serif italic">
-                      practical learning.
-                    </span>
-                  </h1>
-
-                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-xl">
-                    5+ years teaching analytical mathematics gives me the structured pedagogy to break down complex ad algorithms, conversion funnels, and marketing mechanics into simple, reproducible workflows that learners master quickly.
-                  </p>
-
-                  {/* Instructor CTAs */}
-                  <div className="pt-1 flex flex-wrap items-center gap-3">
-                    <a
-                      href="#contact"
-                      id="hero-instructor-cta"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl bg-[#1e3a8a] hover:bg-blue-900 text-white font-bold text-xs sm:text-sm shadow-md shadow-[#1e3a8a]/20 transition-all hover:-translate-y-0.5"
-                    >
-                      <GraduationCap className="w-4 h-4" />
-                      <span>Book as an Instructor</span>
-                      <ArrowRight className="w-4 h-4 opacity-80" />
-                    </a>
-
-                    <a
-                      href="#bento"
-                      className="inline-flex items-center gap-1.5 px-4 py-2.5 sm:py-3 rounded-xl bg-white hover:bg-gray-50 text-gray-800 font-semibold text-xs sm:text-sm border border-[#e2e8f0] shadow-2xs transition-all hover:border-gray-400 hover:-translate-y-0.5"
-                    >
-                      <span>Explore Pedagogy</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-                    </a>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="marketer-view"
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.25 }}
-                  className="space-y-3.5 sm:space-y-4"
-                >
-                  <div className="inline-flex items-center gap-2 px-2.5 py-0.5 sm:py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-[11px] sm:text-xs font-bold tracking-wide">
-                    <TrendingUp className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" />
-                    <span>Inbound Lead Gen • Meta &amp; Google Ads • CRO</span>
-                  </div>
-
-                  <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-bold tracking-tight text-gray-950 leading-[1.22] sm:leading-[1.24]">
-                    Data-driven marketing systems that{" "}
-                    <span className="text-[#0f172a] underline decoration-[#0f172a]/25 decoration-2 sm:decoration-3 underline-offset-[6px] font-serif italic">
-                      scale business growth.
-                    </span>
-                  </h1>
-
-                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed max-w-xl">
-                    Managed marketing operations for over 100 international clients. Specializing in high-intent lead generation, multi-touch retargeting pipelines, and rigorous conversion rate optimization.
-                  </p>
-
-                  {/* Marketer CTAs */}
-                  <div className="pt-1 flex flex-wrap items-center gap-3">
-                    <a
-                      href="#contact"
-                      id="hero-marketer-cta"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl bg-[#0f172a] hover:bg-gray-800 text-white font-bold text-xs sm:text-sm shadow-md shadow-black/15 transition-all hover:-translate-y-0.5"
-                    >
-                      <Briefcase className="w-4 h-4" />
-                      <span>Discuss Growth Strategy</span>
-                      <ArrowRight className="w-4 h-4 opacity-80" />
-                    </a>
-
-                    <a
-                      href="#work"
-                      className="inline-flex items-center gap-1.5 px-4 py-2.5 sm:py-3 rounded-xl bg-white hover:bg-gray-50 text-gray-800 font-semibold text-xs sm:text-sm border border-[#e2e8f0] shadow-2xs transition-all hover:border-gray-400 hover:-translate-y-0.5"
-                    >
-                      <span>View Case Studies</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
-                    </a>
-                  </div>
-                </motion.div>
-              )}
+              <motion.p
+                key={roleMode}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
+                className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl"
+              >
+                {roleMode === "marketer"
+                  ? "I scale businesses through high-intent paid ad funnels, international account execution, and conversion optimization. 100+ foreign clients managed with data-first accountability."
+                  : "I turn real-world campaign mechanics into intuitive, reproducible training frameworks. 5+ years of mathematics pedagogy applied to ads, attribution, and growth systems."}
+              </motion.p>
             </AnimatePresence>
 
-            {/* Quick credentials badges */}
-            <div className="pt-3 flex flex-wrap items-center gap-3.5 text-xs text-gray-600 border-t border-[#e2e8f0]">
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>NSDA Level-3 Certified</span>
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <Users className="w-3.5 h-3.5 text-[#1e3a8a]" />
-                <span>100+ International Clients</span>
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <MapPin className="w-3.5 h-3.5 text-gray-400" />
+            {/* Pill Action Buttons (Matching Screenshot) */}
+            <div className="pt-2 flex flex-wrap items-center gap-3.5">
+              <a
+                href="#work"
+                id="hero-primary-cta"
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-lg shadow-emerald-500/25 transition-all hover:shadow-xl hover:shadow-emerald-500/35 hover:-translate-y-0.5 group"
+              >
+                <span>{roleMode === "marketer" ? "View Case Studies" : "View Curriculum & Pedagogy"}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+
+              <a
+                href="#contact"
+                id="hero-secondary-cta"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/90 hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-slate-200 shadow-sm transition-all hover:border-slate-300 hover:-translate-y-0.5"
+              >
+                <span>Contact Me</span>
+              </a>
+            </div>
+
+            {/* Meta Row: Location + Divider + Social Links */}
+            <div className="pt-4 flex items-center gap-4 text-xs font-medium text-slate-500">
+              <div className="flex items-center gap-1.5">
+                <MapPin className="w-4 h-4 text-emerald-500" />
                 <span>{personal.location}</span>
+              </div>
+
+              <span className="text-slate-300">|</span>
+
+              <div className="flex items-center gap-2.5">
+                <a
+                  href={personal.socials.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="p-1.5 rounded-full hover:bg-emerald-50 hover:text-emerald-600 text-slate-500 transition-colors"
+                >
+                  <LinkedinIcon className="w-4 h-4" />
+                </a>
+
+                <a
+                  href={`mailto:${personal.email}`}
+                  aria-label="Email"
+                  className="p-1.5 rounded-full hover:bg-emerald-50 hover:text-emerald-600 text-slate-500 transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                </a>
+
+                <a
+                  href={personal.socials.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                  className="p-1.5 rounded-full hover:bg-emerald-50 hover:text-emerald-600 text-slate-500 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Hero Portrait Card - Symmetrical, Balanced Editorial Frame */}
-          <div className="flex justify-center lg:justify-end w-full">
-            <div className="relative w-full max-w-[480px] sm:max-w-[520px] lg:max-w-none">
-              {/* Single cohesive card container - perfectly aligned and symmetrical with left column */}
-              <div className="relative aspect-[4/3.2] sm:aspect-[5/4] w-full rounded-3xl bg-slate-900 border border-gray-200/80 shadow-2xl overflow-hidden group">
+          {/* Right Column: Floating Portrait with Offset Connected Shapes & Focus Badge */}
+          <div className="lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end relative">
+            <div className="relative w-full max-w-[420px] sm:max-w-[460px]">
+              {/* Offset Decorative Pastel Card with Connected Circular Nodes (Matching Reference Image) */}
+              <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-emerald-100/70 via-teal-50/50 to-purple-100/50 border border-emerald-200/50 translate-x-3 translate-y-3 pointer-events-none -z-10">
+                {/* Connected Emerald Nodes / Dots at corners */}
+                <div className="absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full bg-emerald-400 border-2 border-white shadow-md flex items-center justify-center">
+                  <span className="w-2 h-2 rounded-full bg-white" />
+                </div>
+                <div className="absolute -bottom-2 -left-2 w-5 h-5 rounded-full bg-teal-400 border-2 border-white shadow-md" />
+              </div>
+
+              {/* Main Portrait Frame with Subtle Float Animation */}
+              <div className="relative rounded-[2.2rem] bg-slate-900 border-4 border-white shadow-2xl overflow-hidden aspect-[4/4.4] group">
                 <Image
                   src="/images/naime-hero.jpg"
-                  alt="Naime - Digital Marketing Strategist & Instructor"
+                  alt={personal.name}
                   fill
                   priority
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   style={{ objectPosition: "28% 18%" }}
                 />
 
-                {/* Subtle dark gradient overlay to ensure text contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30 pointer-events-none" />
+                {/* Subtle vignette for contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
 
-                {/* Top Glassmorphic Badges */}
-                <div className="relative z-10 p-3.5 sm:p-4 flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] sm:text-[11px] font-bold text-white uppercase tracking-wider shadow-sm">
-                    <Award className="w-3.5 h-3.5 text-blue-300" />
-                    Verified Practitioner
+                {/* Top-Right Floating Status Pill */}
+                <div className="absolute top-3.5 right-3.5 z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-100 text-[11px] font-bold text-slate-800 shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    Available for Work
                   </span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] sm:text-[11px] font-medium text-emerald-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Available
-                  </span>
-                </div>
-
-                {/* Bottom Integrated Frosted Glass Card - Sleek & Non-intrusive */}
-                <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 z-10">
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-3 sm:p-3.5 text-white flex items-center justify-between shadow-lg">
-                    <div className="space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs sm:text-sm font-bold text-white">
-                          {personal.name}
-                        </span>
-                        <span className="text-[10px] font-mono font-bold text-blue-200 bg-blue-900/60 px-2 py-0.5 rounded border border-blue-400/30">
-                          {roleMode === "instructor" ? "Instructor" : "Growth Marketer"}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-gray-300 leading-tight">
-                        {roleMode === "instructor"
-                          ? "Digital Marketing Strategist & Trainer"
-                          : "Performance & CRO Specialist"}
-                      </p>
-                    </div>
-
-                    <div className="text-right pl-3 border-l border-white/20 shrink-0">
-                      <p className="text-xs sm:text-sm font-extrabold text-white font-mono leading-none">
-                        100+
-                      </p>
-                      <p className="text-[10px] text-gray-300 font-medium mt-0.5">
-                        Global Clients
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
+
+              {/* Overlapping Floating "CURRENT FOCUS" Glass Card (Matching Screenshot) */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="absolute -bottom-6 -left-4 sm:-bottom-8 sm:-left-6 z-20 w-[90%] sm:w-[320px] p-4 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 space-y-2.5 animate-float"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-extrabold text-emerald-600 tracking-wider uppercase font-mono flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+                    CURRENT FOCUS
+                  </span>
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono">
+                    2026
+                  </span>
+                </div>
+
+                <div className="space-y-1.5 text-[11px] sm:text-xs text-slate-700 font-medium">
+                  <div className="flex items-center gap-2">
+                    <span>🚀</span>
+                    <span>Scaling Paid Funnels (100+ Accounts)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>🏆</span>
+                    <span>NSDA Level-3 Certified Marketer</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>🎓</span>
+                    <span>Mathematics &amp; Marketing Pedagogy (5+ Yrs)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>⚡</span>
+                    <span>Next Clicker Agency Lead Strategist</span>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Infinite Scrolling Platforms & Skills Marquee */}
-      <div className="mt-4 sm:mt-6 py-2 sm:py-2.5 bg-white border-y border-[#e2e8f0] overflow-hidden">
+      {/* Modern Infinite Scrolling Tech Ticker */}
+      <div className="mt-8 sm:mt-10 py-2.5 bg-slate-50/80 border-y border-slate-100 overflow-hidden">
         <div className="flex items-center gap-8 animate-marquee whitespace-nowrap">
           {[...platformSkills, ...platformSkills].map((skill, index) => (
             <div
               key={index}
-              className="inline-flex items-center gap-2 text-xs font-semibold text-gray-600 hover:text-[#1e3a8a] transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1e3a8a]/40" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/70" />
               <span>{skill}</span>
             </div>
           ))}
