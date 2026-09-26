@@ -124,12 +124,125 @@ export default function Hero() {
           </div>
         </motion.div>
 
+        {/* Mobile Header: Greeting & Role Title displayed before the photo */}
+        <div className="md:hidden space-y-1 mb-5">
+          <motion.div {...entrance(0.55)}>
+            <div className="inline-flex items-center gap-2 text-3xl font-extrabold text-slate-900 tracking-tight">
+              <span>Hi, I&apos;m</span>
+              <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 bg-[length:200%_auto] animate-gradient-x underline decoration-emerald-200 decoration-4 underline-offset-8">
+                {personal.name.split(" ")[1] || personal.name}
+                <span className="absolute -top-2 -right-3 text-emerald-400 text-sm animate-twinkle pointer-events-none">
+                  ✦
+                </span>
+              </span>
+            </div>
+
+            {/* Subheading / Role Title */}
+            <AnimatePresence mode="wait">
+              <motion.h1
+                key={`mobile-${roleMode}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="text-2xl font-bold text-slate-800 tracking-tight leading-snug pt-1"
+              >
+                {roleMode === "marketer"
+                  ? "Digital Marketing & Growth Strategist"
+                  : "Digital Marketing Instructor & Pedagogue"}
+              </motion.h1>
+            </AnimatePresence>
+          </motion.div>
+        </div>
+
         {/* Hero 2-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-8 items-center mb-10 sm:mb-14">
-          {/* Left Column: Greeting, Shimmer Name, Role & Interactive Action Buttons */}
-          <div className="md:col-span-6 xl:col-span-7 space-y-5">
-            {/* Greeting with Animated Shimmer Name */}
-            <motion.div className="space-y-1" {...entrance(0.55)}>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-8 items-center mb-10 sm:mb-14">
+          {/* Portrait Column: On mobile comes directly under the mobile title; on desktop placed on the right (order-2) */}
+          <motion.div
+            className="md:col-span-6 xl:col-span-5 md:order-2 flex justify-center md:justify-end relative my-2 md:my-0"
+            {...entrance(0.6)}
+          >
+            <motion.div
+              ref={portraitRef}
+              className="relative w-full max-w-[320px] xs:max-w-[350px] sm:max-w-[420px] md:max-w-[460px] mx-auto md:mx-0"
+              style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+                perspective: 1000,
+              }}
+            >
+              {/* Offset Decorative Pastel Card with Connected Circular Nodes */}
+              <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-emerald-100/70 via-teal-50/50 to-purple-100/50 border border-emerald-200/50 translate-x-3.5 translate-y-3.5 pointer-events-none -z-10">
+                {/* Connected Emerald Nodes / Dots at corners */}
+                <div className="absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full bg-emerald-400 border-2 border-white shadow-md flex items-center justify-center animate-pulse">
+                  <span className="w-2 h-2 rounded-full bg-white" />
+                </div>
+                <div className="absolute -bottom-2 -left-2 w-5 h-5 rounded-full bg-teal-400 border-2 border-white shadow-md animate-pulse" />
+              </div>
+
+              {/* Floating Top-Left Micro Badge */}
+              <div className="absolute -top-4 -left-3 sm:-top-5 sm:-left-5 z-20 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-reverse hover:scale-105 transition-transform cursor-default select-none">
+                <span className="p-1 rounded-lg bg-emerald-50 text-emerald-600 font-bold text-xs">
+                  ⚡
+                </span>
+                <div className="text-left leading-none">
+                  <span className="text-xs font-extrabold text-slate-900 font-mono block">
+                    100+
+                  </span>
+                  <span className="text-[9px] font-semibold text-slate-500">
+                    Accounts Scaled
+                  </span>
+                </div>
+              </div>
+
+              {/* Floating Right-Center Micro Badge */}
+              <div className="absolute top-[38%] -right-3 sm:-right-5 -translate-y-1/2 z-20 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-diagonal hover:scale-105 transition-transform cursor-default select-none hidden sm:flex">
+                <span className="p-1 rounded-lg bg-teal-50 text-teal-600 font-bold text-xs">
+                  📈
+                </span>
+                <div className="text-left leading-none">
+                  <span className="text-xs font-extrabold text-emerald-600 font-mono block">
+                    3.2x
+                  </span>
+                  <span className="text-[9px] font-semibold text-slate-500">
+                    Peak ROAS
+                  </span>
+                </div>
+              </div>
+
+              {/* Main Portrait Frame with Float Animation */}
+              <div className="relative rounded-[2.2rem] bg-slate-900 border-4 border-white shadow-2xl overflow-hidden aspect-[4/4.5] group">
+                <Image
+                  src="/images/naime-hero.jpg"
+                  alt={personal.name}
+                  fill
+                  priority
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  style={{ objectPosition: "28% 18%" }}
+                />
+
+                {/* Subtle vignette for contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
+
+                {/* Top-Right Floating Status Pill with Live Radar Wave */}
+                <div className="absolute top-3.5 right-3.5 z-10">
+                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-100 text-[11px] font-bold text-slate-800 shadow-sm">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+                    </span>
+                    Available for Work
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Story & Details Column: On desktop placed on the left (order-1); on mobile, renders underneath the portrait photo */}
+          <div className="md:col-span-6 xl:col-span-7 md:order-1 space-y-5">
+            {/* Desktop-Only Greeting & Title (hidden on mobile since mobile header shows it above photo) */}
+            <motion.div className="hidden md:block space-y-1" {...entrance(0.55)}>
               <div className="inline-flex items-center gap-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
                 <span>Hi, I&apos;m</span>
                 <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-600 bg-[length:200%_auto] animate-gradient-x underline decoration-emerald-200 decoration-4 underline-offset-8">
@@ -143,7 +256,7 @@ export default function Hero() {
               {/* Subheading / Role Title */}
               <AnimatePresence mode="wait">
                 <motion.h1
-                  key={roleMode}
+                  key={`desktop-${roleMode}`}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
@@ -197,7 +310,7 @@ export default function Hero() {
               </motion.a>
             </motion.div>
 
-            {/* Current Focus 2026 Card in Left Column */}
+            {/* Current Focus 2026 Card */}
             <motion.div className="pt-2" {...entrance(0.8)}>
               <div className="p-3.5 sm:p-4 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-sm space-y-2.5">
                 <div className="flex items-center justify-between">
@@ -275,88 +388,6 @@ export default function Hero() {
               </div>
             </motion.div>
           </div>
-
-          {/* Right Column: Floating Multi-Layered Portrait Showcase */}
-          <motion.div
-            className="md:col-span-6 xl:col-span-5 flex justify-center md:justify-end relative"
-            {...entrance(0.6)}
-          >
-            <motion.div
-              ref={portraitRef}
-              className="relative w-full max-w-[420px] sm:max-w-[460px]"
-              style={{
-                rotateX,
-                rotateY,
-                transformStyle: "preserve-3d",
-                perspective: 1000,
-              }}
-            >
-              {/* Offset Decorative Pastel Card with Connected Circular Nodes */}
-              <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-tr from-emerald-100/70 via-teal-50/50 to-purple-100/50 border border-emerald-200/50 translate-x-3.5 translate-y-3.5 pointer-events-none -z-10">
-                {/* Connected Emerald Nodes / Dots at corners */}
-                <div className="absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full bg-emerald-400 border-2 border-white shadow-md flex items-center justify-center animate-pulse">
-                  <span className="w-2 h-2 rounded-full bg-white" />
-                </div>
-                <div className="absolute -bottom-2 -left-2 w-5 h-5 rounded-full bg-teal-400 border-2 border-white shadow-md animate-pulse" />
-              </div>
-
-              {/* Floating Top-Left Micro Badge */}
-              <div className="absolute -top-4 -left-3 sm:-top-5 sm:-left-5 z-20 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-reverse hover:scale-105 transition-transform cursor-default select-none">
-                <span className="p-1 rounded-lg bg-emerald-50 text-emerald-600 font-bold text-xs">
-                  ⚡
-                </span>
-                <div className="text-left leading-none">
-                  <span className="text-xs font-extrabold text-slate-900 font-mono block">
-                    100+
-                  </span>
-                  <span className="text-[9px] font-semibold text-slate-500">
-                    Accounts Scaled
-                  </span>
-                </div>
-              </div>
-
-              {/* Floating Right-Center Micro Badge */}
-              <div className="absolute top-[38%] -right-3 sm:-right-5 -translate-y-1/2 z-20 px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-xl shadow-slate-900/10 flex items-center gap-2 animate-float-diagonal hover:scale-105 transition-transform cursor-default select-none hidden sm:flex">
-                <span className="p-1 rounded-lg bg-teal-50 text-teal-600 font-bold text-xs">
-                  📈
-                </span>
-                <div className="text-left leading-none">
-                  <span className="text-xs font-extrabold text-emerald-600 font-mono block">
-                    3.2x
-                  </span>
-                  <span className="text-[9px] font-semibold text-slate-500">
-                    Peak ROAS
-                  </span>
-                </div>
-              </div>
-
-              {/* Main Portrait Frame with Float Animation */}
-              <div className="relative rounded-[2.2rem] bg-slate-900 border-4 border-white shadow-2xl overflow-hidden aspect-[4/4.5] group">
-                <Image
-                  src="/images/naime-hero.jpg"
-                  alt={personal.name}
-                  fill
-                  priority
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  style={{ objectPosition: "28% 18%" }}
-                />
-
-                {/* Subtle vignette for contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
-
-                {/* Top-Right Floating Status Pill with Live Radar Wave */}
-                <div className="absolute top-3.5 right-3.5 z-10">
-                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md border border-slate-100 text-[11px] font-bold text-slate-800 shadow-sm">
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping-slow absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-                    </span>
-                    Available for Work
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
         </div>
       </div>
 

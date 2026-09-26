@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
@@ -44,8 +45,15 @@ export default function Navbar() {
           className="flex items-center gap-2 group"
           id="nav-logo"
         >
-          <div className="w-8 h-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 flex items-center justify-center font-bold text-sm tracking-tight group-hover:scale-105 group-hover:bg-emerald-500 group-hover:text-white transition-all">
-            N
+          <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-emerald-500 shadow-xs shadow-emerald-500/20 group-hover:scale-105 group-hover:border-emerald-600 transition-all shrink-0">
+            <Image
+              src="/images/naime-portrait.png"
+              alt={portfolioData.personal.name}
+              fill
+              className="object-cover"
+              style={{ objectPosition: "50% 15%" }}
+              priority
+            />
           </div>
           <span className="font-extrabold text-slate-900 tracking-tight text-lg group-hover:text-emerald-600 transition-colors">
             {portfolioData.personal.name}

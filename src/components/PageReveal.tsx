@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 
 export default function PageReveal() {
@@ -35,8 +36,15 @@ export default function PageReveal() {
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <div className="w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center font-extrabold text-xl shadow-2xl shadow-emerald-500/40 border-2 border-emerald-400">
-                N
+              <div className="relative w-16 h-16 rounded-full overflow-hidden shadow-2xl shadow-emerald-500/40 border-2 border-emerald-400">
+                <Image
+                  src="/images/naime-portrait.png"
+                  alt="Naime"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "50% 15%" }}
+                  priority
+                />
               </div>
             </motion.div>
           </motion.div>

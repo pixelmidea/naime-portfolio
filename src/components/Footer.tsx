@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { LinkedinIcon } from "@/components/SocialIcons";
 import { portfolioData } from "@/data/portfolio";
@@ -28,8 +29,14 @@ export default function Footer() {
           {/* Brand & Positioning */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                N
+              <div className="relative w-7 h-7 rounded-full overflow-hidden border border-emerald-500 shadow-xs shrink-0">
+                <Image
+                  src="/images/naime-portrait.png"
+                  alt={personal.name}
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "50% 15%" }}
+                />
               </div>
               <span className="font-extrabold text-slate-950 text-base tracking-tight">
                 {personal.name}

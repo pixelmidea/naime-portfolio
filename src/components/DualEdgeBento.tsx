@@ -41,7 +41,7 @@ export default function DualEdgeBento() {
   // Video Player States
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [videoUrl, setVideoUrl] = useState(
-    videoShowcase?.videoUrl || "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    videoShowcase?.videoUrl || "https://youtu.be/iQHrgApzAgM?si=FedmxZ2UmMViF-Uy"
   );
   const [isUrlModalOpen, setIsUrlModalOpen] = useState(false);
   const [inputUrl, setInputUrl] = useState(videoUrl);
@@ -188,30 +188,50 @@ export default function DualEdgeBento() {
           <div className="md:col-span-6 flex flex-col">
             <div className="shimmer-card glow-beam relative rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-xl h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] flex flex-col justify-center">
               {isVideoPlaying && embedUrl ? (
-                <iframe
-                  src={embedUrl}
-                  title={videoShowcase?.title || "Methodology Video"}
-                  className="w-full h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] border-0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
+                <div className="relative w-full h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px]">
+                  <iframe
+                    src={embedUrl}
+                    title={videoShowcase?.title || "Featured Video"}
+                    className="w-full h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                  <button
+                    onClick={() => setIsVideoPlaying(false)}
+                    aria-label="Close video player"
+                    className="absolute top-3 right-3 z-20 p-2 rounded-full bg-black/80 hover:bg-black text-white/90 hover:text-white backdrop-blur-md border border-white/20 transition-all shadow-lg group"
+                    title="Return to video preview"
+                  >
+                    <X className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  </button>
+                </div>
               ) : isVideoPlaying && isDirectVideo ? (
-                <video
-                  src={videoUrl}
-                  controls
-                  autoPlay
-                  className="w-full h-full object-cover min-h-[300px] sm:min-h-[340px] lg:min-h-[360px]"
-                />
+                <div className="relative w-full h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px]">
+                  <video
+                    src={videoUrl}
+                    controls
+                    autoPlay
+                    className="w-full h-full object-cover min-h-[300px] sm:min-h-[340px] lg:min-h-[360px]"
+                  />
+                  <button
+                    onClick={() => setIsVideoPlaying(false)}
+                    aria-label="Close video player"
+                    className="absolute top-3 right-3 z-20 p-2 rounded-full bg-black/80 hover:bg-black text-white/90 hover:text-white backdrop-blur-md border border-white/20 transition-all shadow-lg group"
+                    title="Return to video preview"
+                  >
+                    <X className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  </button>
+                </div>
               ) : (
                 /* Idle Poster State */
                 <div className="relative w-full h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] group flex flex-col justify-between">
                   <Image
-                    src={videoShowcase?.posterImage || "/images/naime-hero.jpg"}
+                    src={videoShowcase?.posterImage || "/images/video-poster.jpg"}
                     alt={videoShowcase?.title || "Video Thumbnail"}
                     fill
                     priority
                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    style={{ objectPosition: "30% 20%" }}
+                    style={{ objectPosition: "center" }}
                   />
 
                   {/* Cinematic Vignette */}
@@ -339,7 +359,7 @@ export default function DualEdgeBento() {
                       <button
                         type="button"
                         onClick={() =>
-                          setInputUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                          setInputUrl("https://youtu.be/iQHrgApzAgM?si=FedmxZ2UmMViF-Uy")
                         }
                         className="px-2.5 py-1 rounded-lg bg-white border border-gray-200 text-[11px] font-medium text-gray-700 hover:border-[#1e3a8a]"
                       >

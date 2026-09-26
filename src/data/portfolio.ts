@@ -10,6 +10,7 @@ export interface PersonalInfo {
   email: string;
   availability: string;
   resumeUrl?: string;
+  avatar?: string;
   socials: {
     linkedin?: string;
     github?: string;
@@ -84,6 +85,8 @@ export interface MediaItem {
   category: "Client Work" | "Agency Life" | "Training" | "Presentations" | "Professional Moments";
   caption: string;
   isVideo?: boolean;
+  videoUrl?: string;
+  thumbnailUrl?: string;
   aspectRatio?: "square" | "landscape" | "portrait";
   imagePlaceholderText: string;
 }
@@ -127,6 +130,7 @@ export const portfolioData = {
     email: "digiticnaime@gmail.com",
     availability: "Available for Instructor Roles, Corporate Training & Strategic Consulting",
     resumeUrl: "#contact",
+    avatar: "/images/naime-portrait.png",
     socials: {
       linkedin: "https://www.linkedin.com/in/shinewithnaime/",
       whatsapp: "https://wa.me/8801625596245",
@@ -135,12 +139,12 @@ export const portfolioData = {
   },
 
   videoShowcase: {
-    title: "How Mathematics Logic Powers Live Marketing Systems",
-    subtitle: "A walkthrough of structured pedagogy, international client campaigns, and practical digital marketing frameworks.",
-    badge: "Featured Masterclass & Walkthrough",
-    duration: "Methodology Video",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Default working placeholder video
-    posterImage: "/images/naime-hero.jpg",
+    title: "Building a Personal Brand: Behind the Scenes with Naim Khan",
+    subtitle: "A walkthrough of personal branding, structured pedagogy, international client campaigns, and practical digital growth frameworks.",
+    badge: "Featured Masterclass & Story",
+    duration: "Brand & Strategy",
+    videoUrl: "https://youtu.be/iQHrgApzAgM?si=FedmxZ2UmMViF-Uy",
+    posterImage: "/images/video-poster.jpg",
   } as VideoShowcase,
 
   credibilityMetrics: [
@@ -452,12 +456,14 @@ export const portfolioData = {
     },
     {
       id: "media-3",
-      title: "Interactive Digital Marketing Workshop",
+      title: "Building a Personal Brand: Behind the Scenes",
       category: "Training",
-      caption: "Demonstrating Meta Ads Manager workflows, campaign structures, and budget management to trainees.",
-      imagePlaceholderText: "Classroom Training / Whiteboard Presentation",
+      caption: "Behind the scenes insights, structured communication, and practical digital branding with Naim Khan.",
+      imagePlaceholderText: "Featured Masterclass & Brand Story",
       aspectRatio: "landscape",
       isVideo: true,
+      videoUrl: "https://youtu.be/iQHrgApzAgM?si=FedmxZ2UmMViF-Uy",
+      thumbnailUrl: "/images/video-poster.jpg",
     },
     {
       id: "media-4",
