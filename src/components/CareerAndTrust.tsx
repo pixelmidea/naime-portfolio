@@ -53,9 +53,9 @@ export default function CareerAndTrust() {
         </div>
 
         {/* 2-Column Split: Career Timeline + Verified Credentials */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 mb-14">
           {/* Left Column: Career Timeline */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="md:col-span-7 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
               <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-emerald-600" />
@@ -181,7 +181,7 @@ export default function CareerAndTrust() {
           </div>
 
           {/* Right Column: Institutional Credentials & Degrees */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="md:col-span-5 space-y-6">
             <div className="pb-3 border-b border-slate-100">
               <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-emerald-600" />

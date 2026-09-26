@@ -12,9 +12,9 @@ export default function About() {
   return (
     <section id="about" className="py-20 md:py-28 border-b border-[#e7e5e0] bg-[#fcfbf9]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* Left Column: Portrait & Teaching Snapshot */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="md:col-span-5 space-y-4">
             <div className="editorial-card p-3 rounded-2xl bg-white shadow-sm">
               <div className="aspect-[4/5] rounded-xl bg-gradient-to-tr from-[#f0ebe1] to-[#e4ded0] border border-[#d8d0bf] p-6 flex flex-col justify-between relative overflow-hidden">
                 <div className="flex items-center justify-between text-xs text-gray-700 font-semibold">
@@ -50,7 +50,7 @@ export default function About() {
           </div>
 
           {/* Right Column: Editorial Narrative */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="md:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#1e3a8a]/5 border border-[#1e3a8a]/15 text-[#1e3a8a] text-xs font-bold tracking-wider uppercase">
               Professional Profile
             </div>

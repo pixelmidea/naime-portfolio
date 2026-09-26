@@ -123,9 +123,9 @@ export default function DualEdgeBento() {
         </div>
 
         {/* 2-Column Symmetrical Feature Grid (Cards on Left, Video on Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6 items-stretch">
           {/* Left Column (6 cols): 4 Cards in 2x2 Grid */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+          <div className="md:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
             {credibilityMetrics.map((item, idx) => {
               const CardIcon = cardIcons[idx] || Award;
               const style = accentStyles[idx] || accentStyles[0];
@@ -185,7 +185,7 @@ export default function DualEdgeBento() {
           </div>
 
           {/* Right Column (6 cols): Featured Video Showcase Player */}
-          <div className="lg:col-span-6 flex flex-col">
+          <div className="md:col-span-6 flex flex-col">
             <div className="shimmer-card glow-beam relative rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-xl h-full min-h-[300px] sm:min-h-[340px] lg:min-h-[360px] flex flex-col justify-center">
               {isVideoPlaying && embedUrl ? (
                 <iframe

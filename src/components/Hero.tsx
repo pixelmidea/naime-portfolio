@@ -125,9 +125,9 @@ export default function Hero() {
         </motion.div>
 
         {/* Hero 2-Column Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center mb-10 sm:mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-8 items-center mb-10 sm:mb-14">
           {/* Left Column: Greeting, Shimmer Name, Role & Interactive Action Buttons */}
-          <div className="lg:col-span-6 xl:col-span-7 space-y-5">
+          <div className="md:col-span-6 xl:col-span-7 space-y-5">
             {/* Greeting with Animated Shimmer Name */}
             <motion.div className="space-y-1" {...entrance(0.55)}>
               <div className="inline-flex items-center gap-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
@@ -278,7 +278,7 @@ export default function Hero() {
 
           {/* Right Column: Floating Multi-Layered Portrait Showcase */}
           <motion.div
-            className="lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end relative"
+            className="md:col-span-6 xl:col-span-5 flex justify-center md:justify-end relative"
             {...entrance(0.6)}
           >
             <motion.div

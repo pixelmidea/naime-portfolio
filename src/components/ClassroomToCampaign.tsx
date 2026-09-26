@@ -24,9 +24,9 @@ export default function ClassroomToCampaign() {
         </div>
 
         {/* 3-Column Comparative Layout: Classroom -> THE INSTRUCTOR -> Real World */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
           {/* Left Column: The Classroom */}
-          <div className="lg:col-span-4 editorial-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between border-t-4 border-t-emerald-600">
+          <div className="md:col-span-4 editorial-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between border-t-4 border-t-emerald-600">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded">
@@ -60,7 +60,7 @@ export default function ClassroomToCampaign() {
           </div>
 
           {/* Center Column: The Instructor (Convergence) */}
-          <div className="lg:col-span-4 bg-[#0f172a] text-white p-6 sm:p-8 rounded-2xl shadow-xl flex flex-col justify-between relative overflow-hidden border border-gray-800">
+          <div className="md:col-span-4 bg-[#0f172a] text-white p-6 sm:p-8 rounded-2xl shadow-xl flex flex-col justify-between relative overflow-hidden border border-gray-800">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#1e3a8a]/20 blur-2xl rounded-full pointer-events-none" />
 
             <div>
@@ -107,7 +107,7 @@ export default function ClassroomToCampaign() {
           </div>
 
           {/* Right Column: The Real World */}
-          <div className="lg:col-span-4 editorial-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between border-t-4 border-t-[#1e3a8a]">
+          <div className="md:col-span-4 editorial-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between border-t-4 border-t-[#1e3a8a]">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-[11px] font-bold text-[#1e3a8a] uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded">

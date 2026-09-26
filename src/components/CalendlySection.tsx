@@ -33,7 +33,7 @@ export default function CalendlySection() {
       <SparkleParticle className="absolute top-12 right-[8%] hidden sm:block" size="lg" color="emerald" delay={0.4} />
       <SparkleParticle className="absolute bottom-16 left-[6%] hidden sm:block" size="md" color="teal" variant="four-point-soft" delay={1.2} />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3 font-mono">
@@ -115,7 +115,7 @@ export default function CalendlySection() {
           </div>
 
           {/* Calendly Live Iframe Container */}
-          <div className="relative w-full min-h-[680px] sm:min-h-[720px] bg-white">
+          <div className="relative w-full min-h-[550px] sm:min-h-[600px] bg-white">
             {/* Loading placeholder skeleton */}
             {!iframeLoaded && (
               <div className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-slate-50/50 z-0">
@@ -142,7 +142,7 @@ export default function CalendlySection() {
             <iframe
               src={embedUrl}
               onLoad={() => setIframeLoaded(true)}
-              className="relative z-10 w-full min-h-[680px] sm:min-h-[720px] border-0"
+              className="relative z-10 w-full min-h-[550px] sm:min-h-[600px] border-0"
               title={`Book a meeting with ${personal.name}`}
             />
           </div>

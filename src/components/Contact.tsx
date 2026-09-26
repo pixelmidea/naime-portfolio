@@ -149,9 +149,9 @@ export default function Contact() {
         </div>
 
         {/* 2-Column Contact Info + Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Direct Contact Info */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="md:col-span-5 space-y-6">
             <div>
               <h3 className="text-2xl font-bold text-slate-900 mb-2">
                 Direct Channels
@@ -287,7 +287,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column: Interactive Booking Form */}
-          <div className="lg:col-span-7 editorial-card shimmer-card glow-beam p-6 sm:p-8 rounded-3xl bg-white border border-slate-100 shadow-sm">
+          <div className="md:col-span-7 editorial-card shimmer-card glow-beam p-6 sm:p-8 rounded-3xl bg-white border border-slate-100 shadow-sm">
             <h3 className="text-xl font-bold text-slate-900 mb-1">
               Send an Inquiry
             </h3>

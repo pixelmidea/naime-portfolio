@@ -54,9 +54,9 @@ export default function ClientWork() {
         </div>
 
         {/* Large Stat Banner & Core Philosophy */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16 p-8 rounded-2xl bg-[#fbfaf7] border border-[#e7e5e0]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center mb-16 p-8 rounded-2xl bg-[#fbfaf7] border border-[#e7e5e0]">
           {/* Big number */}
-          <div className="lg:col-span-4 text-center lg:text-left border-b lg:border-b-0 lg:border-r border-gray-200 pb-6 lg:pb-0 lg:pr-8">
+          <div className="md:col-span-4 text-center md:text-left border-b md:border-b-0 md:border-r border-gray-200 pb-6 md:pb-0 md:pr-8">
             <div className="text-6xl sm:text-7xl font-extrabold text-[#1e3a8a] tracking-tight leading-none mb-2">
               100+
             </div>
@@ -69,7 +69,7 @@ export default function ClientWork() {
           </div>
 
           {/* Key Learning Quote */}
-          <div className="lg:col-span-8 space-y-3 lg:pl-4">
+          <div className="md:col-span-8 space-y-3 md:pl-4">
             <h3 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
               What international client service taught me:
             </h3>
