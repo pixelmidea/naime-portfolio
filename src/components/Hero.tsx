@@ -97,7 +97,7 @@ export default function Hero() {
               )}
               <span className="relative z-10 flex items-center gap-1.5">
                 <TrendingUp className="w-3.5 h-3.5" />
-                <span>Growth Marketer</span>
+                <span>Marketing Instructor</span>
               </span>
             </button>
 
@@ -118,7 +118,7 @@ export default function Hero() {
               )}
               <span className="relative z-10 flex items-center gap-1.5">
                 <GraduationCap className="w-3.5 h-3.5" />
-                <span>Marketing Instructor</span>
+                <span>Freelancing Instructor</span>
               </span>
             </button>
           </div>
