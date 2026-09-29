@@ -25,7 +25,7 @@ const entrance = (delay: number) => ({
 
 export default function Hero() {
   const { personal } = portfolioData;
-  const [roleMode, setRoleMode] = useState<"instructor" | "marketer">("marketer");
+  const [roleMode, setRoleMode] = useState<"instructor" | "marketer">("instructor");
 
   // Mouse-tracking parallax for portrait
   const mouseX = useMotionValue(0);
@@ -81,27 +81,6 @@ export default function Hero() {
         <motion.div className="flex justify-start mb-6" {...entrance(0.4)}>
           <div className="inline-flex p-1 rounded-full bg-slate-100/80 border border-slate-200/80 backdrop-blur-md shadow-2xs">
             <button
-              onClick={() => setRoleMode("marketer")}
-              className={`relative px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 ${
-                roleMode === "marketer"
-                  ? "text-white"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              {roleMode === "marketer" && (
-                <motion.div
-                  layoutId="hero-role-pill"
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full shadow-md shadow-emerald-500/30"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              )}
-              <span className="relative z-10 flex items-center gap-1.5">
-                <TrendingUp className="w-3.5 h-3.5" />
-                <span>Marketing Instructor</span>
-              </span>
-            </button>
-
-            <button
               onClick={() => setRoleMode("instructor")}
               className={`relative px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 ${
                 roleMode === "instructor"
@@ -119,6 +98,27 @@ export default function Hero() {
               <span className="relative z-10 flex items-center gap-1.5">
                 <GraduationCap className="w-3.5 h-3.5" />
                 <span>Freelancing Instructor</span>
+              </span>
+            </button>
+
+            <button
+              onClick={() => setRoleMode("marketer")}
+              className={`relative px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 ${
+                roleMode === "marketer"
+                  ? "text-white"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              {roleMode === "marketer" && (
+                <motion.div
+                  layoutId="hero-role-pill"
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full shadow-md shadow-emerald-500/30"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              <span className="relative z-10 flex items-center gap-1.5">
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>Marketing Instructor</span>
               </span>
             </button>
           </div>
